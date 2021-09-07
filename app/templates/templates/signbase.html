@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{%block title%} Carvice {%endblock title%}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	
+	<link rel="shortcut icon" type="" href={% static "images/logo.png"%}  height="100" width="100" />
+
+    <link rel="stylesheet" href={% static "css/bootstrap.min.css"%}>
+    <link rel="stylesheet" href={% static "css/animate.css"%}>
+    <link rel="stylesheet" href={% static "css/hamburgers.min.css"%}>
+    <link rel="stylesheet" href={% static "css/select2.min.css"%}>
+    <link rel="stylesheet" href={% static "css/util.css"%}>
+    <link rel="stylesheet" href={% static "css/main.css"%}>
+
+  </head>
+  <body>
+    {% block content%}
+    {% endblock content%}
+   
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src={% static "js/jquery-3.2.1.min.js"%}></script>
+  <script src={% static "js/popper.js"%}></script>
+  <script src={% static "js/bootstrap.min.js"%}></script>
+  <script src={% static "js/select2.min.js"%}></script>
+  <script src={% static "js/tilt.jquery.min.js"%}></script>
+  <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+  <script src={% static "js/main.js"%}></script>
+    
+  </body>
+</html>
