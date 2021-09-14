@@ -148,4 +148,159 @@
 
 </section>
 
+<section class="ftco-section services-section ftco-no-pt ftco-no-pb mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-2">
+                <h2 class="mb-2">Bookings</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col align-self-end text-right">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Insert</button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex">
+              <table class="table table-hover bootstrap-datatable" >
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col">Booking Id</th>
+                        <th scope="col">User Id</th>
+                        <th scope="col">Rent Id</th>
+                        <th scope="col">Pick up location</th>
+                        <th scope="col">Drop off location</th>
+                        <th scope="col">Pick up date</th>
+                        <th scope="col">Drop off date</th>
+                        <th scope="col">Pick up time</th>
+                        <th scope="col">Drop off time</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for bk in booking %}
+                    <tr>
+                        <td scope="row">{{bk.booking_id}}</td>
+                        <td>{{bk.user_id_id}}</td>
+                        <td>{{bk.rent_id_id}}</td>
+                        <td>{{bk.pickup_location}}</td>
+                        <td>{{bk.dropoff_location}}</td>
+                        <td>{{bk.pickup_date}}</td>
+                        <td>{{bk.dropoff_date}}</td>
+                        <td>{{bk.pickup_time}}</td>
+                        <td>{{bk.dropoff_time}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+</section>
+
+<section class="ftco-section services-section ftco-no-pt ftco-no-pb mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-2">
+                <h2 class="mb-2">Admin</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col align-self-end text-right">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Insert</button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex">
+              <table class="table table-hover bootstrap-datatable" >
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col">Admin Id</th>
+                        <th scope="col">User Id</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for admin in admin %}
+                    <tr>
+                        <td scope="row">{{admin.admin_id}}</td>
+                        <td>{{admin.user_id_id}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+</section>
+
+<section class="ftco-section services-section ftco-no-pt ftco-no-pb mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-2">
+                <h2 class="mb-2">Confirmation</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col align-self-end text-right">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Insert</button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex">
+              <table class="table table-hover bootstrap-datatable" >
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col">Booking Id</th>
+                        <th scope="col">Admin Id</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for confirm in confirmation %}
+                    <tr>
+                        <td scope="row">{{confirm.booking_id_id}}</td>
+                        <td>{{confirm.admin_id_id}}</td>
+                        <td>{{confirm.date}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+</section>
+
+<section class="ftco-section services-section ftco-no-pt ftco-no-pb mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-2">
+                <h2 class="mb-2">Bill</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col align-self-end text-right">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Insert</button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex">
+              <table class="table table-hover bootstrap-datatable" >
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col">Bill no</th>
+                        <th scope="col">Booking Id</th>
+                        <th scope="col">Total Fee</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for bill in bill %}
+                    <tr>
+                        <td scope="row">{{bill.bill_no}}</td>
+                        <td>{{bill.booking_id_id}}</td>
+                        <td>{{bill.total_fee}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+</section>
+
 {%endblock content%}

@@ -1,4 +1,4 @@
-from app.models import Car, Rental_Car, User
+from app.models import Admin, Bill, Booking, Car, Confirmation, Rental_Car, User
 from django.shortcuts import render
 from django.views.generic import View
 
@@ -41,10 +41,18 @@ class DashboardView(View):
         user = User.objects.all()
         car = Car.objects.all()
         rental_car = Rental_Car.objects.all()
+        booking = Booking.objects.all()
+        confirmation = Confirmation.objects.all()
+        bill = Bill.objects.all()
+        admin = Admin.objects.all()
         context = {
             'user': user,
             'car': car, 
             'rental_car': rental_car, 
+            'booking': booking, 
+            'confirmation': confirmation, 
+            'bill': bill, 
+            'admin': admin, 
         }
         return render(request, 'pages/dashboard.html',context)
 
