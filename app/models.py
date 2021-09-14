@@ -26,10 +26,31 @@ class Car(models.Model):
 class Rental_Car(models.Model):
     rent_id = models.AutoField(primary_key=True)
     car_id = models.ForeignKey(Car, on_delete = models.CASCADE)
-    fee_per_day = models.IntegerField()
+    fee_per_day = models.FloatField()
     availability = models.SmallIntegerField()
 
-
-
+class Booking(models.Model):
+    booking_id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey(User, on_delete = models.DO_NOTHING)
+    rent_id = models.ForeignKey(Rental_Car, on_delete= models.DO_NOTHING)
+    pickup_location = models.CharField(max_length=50)
+    dropoff_location = models.CharField(max_length=50)
+    pickup_date = models.DateField()
+    dropoff_date = models.DateField()
+    pickup_time = models.TimeField()
+    dropoff_time = models.TimeField()
     
+class Admin(models.Model):
+    admin_id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Confirmation(models.Model):
+    booking_id = models.ForeignKey(Booking, on_delete = models.CASCADE)
+    admin_id = models.ForeignKey(Admin, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+
+class Bill(models.Model):
+    bill_no = models.AutoField(primary_key=True)
+    booking_id = models.ForeignKey(Booking, on_delete = models.DO_NOTHING)
+    total_fee = models.FloatField()
 
