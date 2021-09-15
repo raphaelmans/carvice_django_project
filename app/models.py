@@ -3,6 +3,8 @@ from django.db.models.base import Model
 
 # Create your models here.
 
+# Villacarlos
+
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=50)
@@ -16,7 +18,6 @@ class User(models.Model):
     # class meta: 
     #     db_table = 'User'
 
-    
 class Car(models.Model):
     car_id = models.AutoField(primary_key=True)
     model = models.CharField(max_length=25)
@@ -28,6 +29,8 @@ class Rental_Car(models.Model):
     car_id = models.ForeignKey(Car, on_delete = models.CASCADE)
     fee_per_day = models.FloatField()
     availability = models.SmallIntegerField()
+
+# Mansueto 
 
 class Booking(models.Model):
     booking_id = models.AutoField(primary_key=True)
