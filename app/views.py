@@ -1,6 +1,7 @@
 from app.models import Admin, Bill, Booking, Car, Confirmation, Rental_Car, User
 from django.shortcuts import render
 from django.views.generic import View
+from .forms import *
 
 class IndexView(View):
     def get(self, request):
