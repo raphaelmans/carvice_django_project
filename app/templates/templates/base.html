@@ -29,6 +29,8 @@
     <link rel="stylesheet" href={% static "css/flaticon.css"%}>
     <link rel="stylesheet" href={% static "css/icomoon.css"%}>
     <link rel="stylesheet" href={% static 'css/style.css'%}>
+    <link rel="stylesheet" type="text/css" href={% static 'plugins/DataTables/datatables.css'%}>
+ 
   </head>
   <body>
     {% include "components/nav.html" %}
@@ -59,6 +61,11 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src={% static "js/google-map.js"%}></script>
   <script src={% static "js/main.js"%}></script>
-    
+  <script type="text/javascript" charset="utf8" src={% static "plugins/DataTables/datatables.js"%}></script>
+  <script>
+   $(document).ready( function () {
+    $('.table').DataTable();
+} );
+  </script>
   </body>
 </html>

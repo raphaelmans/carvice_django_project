@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="row justify-content-center d-flex" >
-            <table class="table table-hover bootstrap-datatable" >
+            <table class="table table-hover bootstrap-datatable display" id="table_id">
                 <thead class="text-center">
                     <tr>
                         <th scope="col">Id</th>
@@ -41,9 +41,9 @@
                         <th scope="col">Password</th>
                         <th scope="col">First</th>
                         <th scope="col">Last</th>
-                        <th scope="col">Phone Number</th>
+                        <!-- <th scope="col">Phone Number</th>
                         <th scope="col">Email Address</th>
-                        <th scope="col">Admin</th>
+                        <th scope="col">Admin</th> -->
                     </tr>
                 </thead>
                 <tbody class="text-center">
@@ -54,9 +54,9 @@
                         <td>{{user.password}}</td>
                         <td>{{user.first_name}}</td>
                         <td>{{user.last_name}}</td>
-                        <td>{{user.phone_number}}</td>
+                        <!-- <td>{{user.phone_number}}</td>
                         <td>{{user.email_address}}</td>
-                        <td>{{user.is_admin}}</td>
+                        <td>{{user.is_admin}}</td> -->
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -302,5 +302,4 @@
             </table>
         </div>
 </section>
-
 {%endblock content%}
