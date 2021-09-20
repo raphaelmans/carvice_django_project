@@ -55,5 +55,5 @@ class DashboardView(View):
             'bill': bill, 
             'admin': admin, 
         }
-        return render(request, 'pages/dashboard.html',context)
+        return render(request, 'pages/admin/dashboard.html',context)
 

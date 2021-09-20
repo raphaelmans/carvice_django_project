@@ -1,0 +1,308 @@
+{% extends "../../templates/admin_base.html" %}
+{% load static %}
+{%block content%}
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url({% static 'images/bg_2.jpg'%});"
+    data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i
+                                class="ion-ios-arrow-forward"></i></a></span> <span>Dashboard <i
+                            class="ion-ios-arrow-forward"></i></span></p>
+                <h1 class="mb-3 bread">Dashboard</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="" style="margin-bottom:5%"></div>
+
+    {%include "../../components/admin/charts.html"%}
+
+<section class="ftco-section services-section ftco-no-pt ftco-no-pb">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-2">
+                <span class="subheading">Tables</span>
+                <h2 class="mb-2">Users</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col align-self-end text-right">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Insert</button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex" >
+            <table class="table table-hover bootstrap-datatable display" id="table_id">
+                <thead class="text-center">
+                    <tr>
+                        {% comment %} <th scope="col">Id</th> {% endcomment %}
+                        <th scope="col">Username</th>
+                        <th scope="col">Password</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <!-- <th scope="col">Phone Number</th>
+                        <th scope="col">Email Address</th>
+                        <th scope="col">Admin</th> -->
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for user in user %}
+                    <tr>
+                        {% comment %} <td scope="row">{{user.user_id}}</td> {% endcomment %}
+                        <td>{{user.username}}</td>
+                        <td>{{user.password}}</td>
+                        <td>{{user.first_name}}</td>
+                        <td>{{user.last_name}}</td>
+                        <!-- <td>{{user.phone_number}}</td>
+                        <td>{{user.email_address}}</td>
+                        <td>{{user.is_admin}}</td> -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+</section>
+
+<section class="ftco-section services-section ftco-no-pt ftco-no-pb mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-2">
+                <h2 class="mb-2">Cars</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col align-self-end text-right">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Insert</button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex">
+             <table class="table table-hover bootstrap-datatable" >
+                <thead class="text-center">
+                    <tr>
+                        {% comment %} <th scope="col">Id</th> {% endcomment %}
+                        <th scope="col">Model</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Year</th>
+                     
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for car in car %}
+                    <tr>
+                        {% comment %} <td scope="row">{{car.car_id}}</td> {% endcomment %}
+                        <td>{{car.model}}</td>
+                        <td>{{car.brand}}</td>
+                        <td>{{car.year}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+</section>
+
+<section class="ftco-section services-section ftco-no-pt ftco-no-pb mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-2">
+                <h2 class="mb-2">Rental Cars</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col align-self-end text-right">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Insert</button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex">
+              <table class="table table-hover bootstrap-datatable" >
+                <thead class="text-center">
+                    <tr>
+                        {% comment %} <th scope="col">Id</th> {% endcomment %}
+                        <th scope="col">Fee Per Day</th>
+                        <th scope="col">Availability</th>
+                        <th scope="col">Car Id</th>
+                     
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for rental_car in rental_car %}
+                    <tr>
+                        {% comment %} <td scope="row">{{rental_car.rent_id}}</td> {% endcomment %}
+                        <td>{{rental_car.fee_per_day}}</td>
+                        <td>{{rental_car.availability}}</td>
+                        <td>{{rental_car.car_id_id}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+</section>
+
+<section class="ftco-section services-section ftco-no-pt ftco-no-pb mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-2">
+                <h2 class="mb-2">Bookings</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col align-self-end text-right">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Insert</button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex">
+              <table class="table table-hover bootstrap-datatable" >
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col">Booking Id</th>
+                        <th scope="col">User Id</th>
+                        <th scope="col">Rent Id</th>
+                        <th scope="col">Pick up location</th>
+                        <th scope="col">Drop off location</th>
+                        <th scope="col">Pick up date</th>
+                        <th scope="col">Drop off date</th>
+                        <th scope="col">Pick up time</th>
+                        <th scope="col">Drop off time</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for bk in booking %}
+                    <tr>
+                        <td scope="row">{{bk.booking_id}}</td>
+                        <td>{{bk.user_id_id}}</td>
+                        <td>{{bk.rent_id_id}}</td>
+                        <td>{{bk.pickup_location}}</td>
+                        <td>{{bk.dropoff_location}}</td>
+                        <td>{{bk.pickup_date}}</td>
+                        <td>{{bk.dropoff_date}}</td>
+                        <td>{{bk.pickup_time}}</td>
+                        <td>{{bk.dropoff_time}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+</section>
+
+<section class="ftco-section services-section ftco-no-pt ftco-no-pb mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-2">
+                <h2 class="mb-2">Admin</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col align-self-end text-right">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Insert</button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex">
+              <table class="table table-hover bootstrap-datatable" >
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col">Admin Id</th>
+                        <th scope="col">User Id</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for admin in admin %}
+                    <tr>
+                        <td scope="row">{{admin.admin_id}}</td>
+                        <td>{{admin.user_id_id}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+</section>
+
+<section class="ftco-section services-section ftco-no-pt ftco-no-pb mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-2">
+                <h2 class="mb-2">Confirmation</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col align-self-end text-right">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Insert</button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex">
+              <table class="table table-hover bootstrap-datatable" >
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col">Booking Id</th>
+                        <th scope="col">Admin Id</th>
+                        <th scope="col">Confirmation Date</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for confirm in confirmation %}
+                    <tr>
+                        <td scope="row">{{confirm.booking_id_id}}</td>
+                        <td>{{confirm.admin_id_id}}</td>
+                        <td>{{confirm.date}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+</section>
+
+<section class="ftco-section services-section ftco-no-pt ftco-no-pb mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-2">
+                <h2 class="mb-2">Bill</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col align-self-end text-right">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Insert</button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex">
+              <table class="table table-hover bootstrap-datatable" >
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col">Bill no</th>
+                        <th scope="col">Booking Id</th>
+                        <th scope="col">Total Fee</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for bill in bill %}
+                    <tr>
+                        <td scope="row">{{bill.bill_no}}</td>
+                        <td>{{bill.booking_id_id}}</td>
+                        <td>{{bill.total_fee}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+</section>
+{%endblock content%}
