@@ -29,7 +29,10 @@
     <link rel="stylesheet" href={% static "css/flaticon.css"%}>
     <link rel="stylesheet" href={% static "css/icomoon.css"%}>
     <link rel="stylesheet" href={% static 'css/style.css'%}>
+    
+    <link rel="stylesheet" type="text/css" href={% static 'plugins/AdminLTE/dist/adminlte.min.css'%}>
     <link rel="stylesheet" type="text/css" href={% static 'plugins/DataTables/datatables.css'%}>
+
  
   </head>
   <body>
@@ -62,6 +65,8 @@
   <script src={% static "js/google-map.js"%}></script>
   <script src={% static "js/main.js"%}></script>
   <script type="text/javascript" charset="utf8" src={% static "plugins/DataTables/datatables.js"%}></script>
+  <script type="text/javascript" src={% static "plugins/AdminLTE/dist/js/adminlte.js"%}></script>
+
   <script>
    $(document).ready( function () {
     $('.table').DataTable();
