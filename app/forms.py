@@ -4,18 +4,18 @@ from .models import *
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('username', 'password', 'first_name', 'last_name', 'phone_number', 'email_address')
 
 class CarForm(forms.ModelForm):
     class Meta:
         model = Car
-        fields = '__all__'
+        fields = ('model' ,'brand','year')
 
 
 class Rental_CarForm(forms.ModelForm):
     class Meta:
         model = Rental_Car
-        fields = '__all__'
+        fields = ('fee_per_day', 'availability', 'car_id') #the field name should match the input name
 
 class BookingForm(forms.ModelForm):
     class Meta:
