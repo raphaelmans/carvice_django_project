@@ -1,0 +1,213 @@
+{%load static%}
+<!-- View User -->
+<div class="modal fade bd-example-modal-lg" id="viewUserModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Insert User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="" id="viewUser" class="needs-validation" novalidate>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="id_firstname" class="form-label">First name</label>
+                                <input type="text" class="form-control" id="id_firstname" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please enter first name
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="id_lastname" class="form-label">Last name</label>
+                            <input type="text" class="form-control" id="id_lastname" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please enter last name
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_username" class="form-label">Username</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                            <input type="text" class="form-control" id="id_username"
+                                aria-describedby="inputGroupPrepend" required>
+                            <div class="invalid-feedback">
+                                Please choose a username.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_password" class="form-label">Password</label>
+                        <div class="input-group has-validation">
+                            <input type="password" class="form-control" id="id_password"
+                                required>
+                            <div class="invalid-feedback">
+                                Please enter a password.
+                            </div>
+                        </div>
+                    </div>
+<!-- 
+                    <div class="form-group">
+                        <label for="id_isAdmin">Admin</label>
+                        <select class="form-control" id="id_isAdmin" required>
+                            <option value="" selected hidden>Is it an admin?</option>
+                            <option value="1"> Yes</option>
+                            <option value="0"> No</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please choose if it is an admin. 
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="form-group">
+              <label for="inputDueDate">Due Date: </label>
+              <input type="date" class="form-control" id="inputDueDate"></input>
+            </div> -->
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- View Cars Modal-->
+<div class="modal fade" id="viewCarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Insert Car</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="" id="viewCar" class="needs-validation" novalidate>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="id_model" class="form-label">Model</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" id="id_model" required>
+                            <div class="invalid-feedback">
+                                Please choose a model.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_brand" class="form-label">Brand</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" id="id_brand" required>
+                            <div class="invalid-feedback">
+                                Please choose a brand.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_year" class="form-label">Year</label>
+                        <div class="input-group has-validation">
+                            <input type="date" class="form-control" id="id_year" required>
+                            <div class="invalid-feedback">
+                                Please choose a date.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Insert Rental Car Modal-->
+<div class="modal fade" id="viewRentalCarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Insert Rental Car</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="" id="viewRentalCar" class="needs-validation" novalidate>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="id_car">Car</label>
+                                <select class="form-control" id="id_car" required>
+                                    <option value="" selected hidden>Select Car</option>
+                                    <option value=""> Car</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please enter last name
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_avail">Availability</label>
+                        <select class="form-control" id="id_avail" required>
+                            <option value="" selected hidden>Is it available?</option>
+                            <option value="1"> Yes</option>
+                            <option value="0"> No</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select an availability
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_fee" class="form-label">Fee Per Day</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" id="id_fee" required>
+                            <div class="invalid-feedback">
+                                Please enter a fee.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group">
+              <label for="inputDueDate">Due Date: </label>
+              <input type="date" class="form-control" id="inputDueDate"></input>
+            </div> -->
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
