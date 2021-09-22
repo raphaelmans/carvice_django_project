@@ -1,8 +1,10 @@
-from django.http.response import HttpResponse
+from django.http import request
+from django.http.response import HttpResponse, JsonResponse
 from app.models import Admin, Bill, Booking, Car, Confirmation, Rental_Car, User
 from django.shortcuts import redirect, render
 from django.views.generic import View
 from .forms import *
+from django.contrib import messages
 
 class IndexView(View):
     def get(self, request):
@@ -72,14 +74,22 @@ class UserRegistrationView(View):
             pw = request.POST.get("password")
             email = request.POST.get("email_address")
             phone = request.POST.get("phone_number")
-            form = User(username = un, password = pw,first_name = fname, last_name = lname,  phone_number = phone, email_address = email, is_admin=0) 
-            form.save()
+            
+            #username filtering
+            if(User.objects.filter(username = un).exists()):
+                messages.error(request, "Username already exists")
+                return redirect('app:user_registration_view') 
 
-            return redirect('app:dashboard')
+            else: 
+                form = User(username = un, password = pw,first_name = fname, last_name = lname,  phone_number = phone, email_address = email, is_admin=0) 
+                form.save()
+                return redirect('app:dashboard')
         
         else:
             print(form.errors)
             return HttpResponse('not valid')
+
+
 
 class CarRegistrationView(View): 
     def get(self,request):
@@ -116,11 +126,18 @@ class RentalCarRegistrationView(View):
             car = Car.objects.get(car_id = request.POST.get("car_id")) #returning the car instance
             avail = request.POST.get("availability")
             fee = request.POST.get("fee_per_day")
-            form = Rental_Car(car_id = car, availability = avail, fee_per_day = fee) 
-            form.save()
+            
+            #If car instance is present in the database 
+            if(Rental_Car.objects.filter(car_id = car).exists()):
+                messages.error(request, "Car already exists")
+                return redirect('app:rentalcar_registration_view')
 
-            return redirect('app:dashboard')
+            else: 
+                form = Rental_Car(car_id = car, availability = avail, fee_per_day = fee) 
+                form.save()
+                return redirect('app:dashboard')
         
         else:
             print(form.errors)
             return HttpResponse('not valid')
+
