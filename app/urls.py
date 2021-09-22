@@ -14,5 +14,8 @@ urlpatterns = [
     path('userregistration', views.UserRegistrationView.as_view(), name='user_registration_view'),
     path('carregistration', views.CarRegistrationView.as_view(), name='car_registration_view'),
     path('rentalcarregistration', views.RentalCarRegistrationView.as_view(), name='rentalcar_registration_view'),
-
+    path('bookingregistration', views.BookingRegistrationView.as_view(), name='booking_registration_view'),
+    path('adminregistration', views.AdminRegistrationView.as_view(), name='admin_registration_view'),
+    path('confirmationregistration', views.ConfirmationRegistrationView.as_view(), name='confirmation_registration_view'),
+    path('billregistration', views.BillRegistrationView.as_view(), name='bill_registartion_view'),
 ]
