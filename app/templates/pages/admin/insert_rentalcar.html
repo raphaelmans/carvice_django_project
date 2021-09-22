@@ -1,7 +1,48 @@
-{% extends "../../templates/admin_base.html" %}
-
+{% extends "../../templates/admin_insert_base.html" %} 
 {% load static %}
 
-{%block content%}
-    {%include "../../components/admin/insert_rentalcar_section.html"%}
-{%endblock content%}
+{%block form_content%}
+{% csrf_token %}
+    <h4><b>Add Rental Car</b></h4>
+          <div class="form-group">
+            <label for="car_id">Car</label>
+            <select class="form-control" id="car_id" name="car_id" required>
+              <option value="" selected hidden>Select Car</option>
+                {% for car in car %}
+              <option value="{{car.car_id}}"> {{car.model}}</option>
+                {% endfor %}
+            </select>
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+            <div class="invalid-feedback">
+              Please select a model
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="id_avail">Availability</label>
+            <select class="form-control" id="availability" name="availability" required>
+                <option value="" selected hidden>Is it available?</option>
+                <option value="1" name="1"> Yes</option>
+                <option value="0" name="0"> No</option>
+            </select>
+            <div class="invalid-feedback">
+                Please select an availability
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="fee_per_day" class="form-label">Fee Per Day</label>
+            <div class="input-group has-validation">
+                <input type="number" min="0" class="form-control" id="fee_per_day" name="fee_per_day" required>
+                <div class="invalid-feedback">
+                    Please enter a fee.
+                </div>
+            </div>
+        </div>
+
+          <div class="form-group mt-5">
+            <button type="submit" class="btn btn-block btn-primary py-3 px-4">Insert</button>
+          </div>
+{%endblock form_content%}
