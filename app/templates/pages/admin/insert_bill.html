@@ -1,0 +1,35 @@
+{% extends "../../templates/admin_insert_base.html" %} 
+{% load static %}
+
+{%block form_content%}
+{% csrf_token %}
+<h4><b>Add Bill</b></h4>
+
+<div class="form-group">
+  <label for="booking_id">Booking ID</label>
+  <select class="form-control" id="booking_id" name="booking_id" required>
+    <option value="" selected hidden>Select Booking ID</option>
+    {% for bk in bookings %}
+    <option value="{{bk.booking_id}}">{{bk.booking_id}}</option>
+    {% endfor %} 
+  </select>
+  <div class="valid-feedback">Looks good!</div>
+  <div class="invalid-feedback">Please select booking</div>
+</div>
+<div class="form-group">
+    <label for="total_fee" class="form-label">Total Fee</label>
+    <div class="input-group has-validation">
+      <input type="number" min="0" class="form-control" id="total_fee"
+        name="total_fee" required>
+      <div class="invalid-feedback">
+        Please enter total fee.
+      </div>
+    </div>
+  </div>
+<div class="form-group mt-5">
+  <button type="submit" class="btn btn-block btn-primary py-3 px-4">
+    Insert
+  </button>
+</div>
+
+{%endblock form_content%}

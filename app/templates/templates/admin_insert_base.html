@@ -1,0 +1,34 @@
+{% extends "./admin_base.html" %}
+
+{%load static%}
+
+{%block content%}
+    <div
+  class="hero-wrap"
+  style="background-image: url({% static "images/bg_1.jpg"%} )"
+  data-stellar-background-ratio="0.5"
+>
+<div class="overlay"></div>
+<div class="container">
+  <div class="
+        row
+        no-gutters
+        slider-text
+        justify-content-start
+        align-items-center
+      ">
+    <div class="col"></div>
+    <div class=" col-md-6 mt-5">
+      <div class="container p-3" style="background-color: white; border-radius: 10px;">
+        <form class="needs-validation m-2" novalidate id = "form1" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
+            {%block form_content%}
+
+            {%endblock form_content%}
+        </form>
+      </div>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
+</div>
+{%endblock content%}
