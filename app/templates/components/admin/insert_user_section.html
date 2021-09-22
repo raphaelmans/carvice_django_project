@@ -15,6 +15,14 @@
       ">
     <div class="col"></div>
     <div class=" col-md-6 mt-5">
+     {% for msg in messages%}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Holy guacamole!</strong> {{msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    {% endfor%}
       <div class="container p-3" style="background-color: white; border-radius: 10px;">
         <form class="needs-validation m-2" novalidate id = "form1" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
           {% csrf_token %}
