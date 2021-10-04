@@ -29,10 +29,50 @@
         <li class="nav-item"><a href="contact" class="nav-link">Contact</a></li>
         <!-- <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
       <li class="nav-item"><a href="car.html" class="nav-link">Our Car</a></li> -->
-        <li class="nav-item"><a href="signin" class="nav-link">Sign In</a></li>
+        <li class="nav-item"><a href="signin" class="nav-link" id="signin">HELLO</a></li>
         <li class="nav-item"><a href="signup" class="nav-link">Sign Up</a></li>
       </ul>
     </div>
   </div>
 </nav>
 <!-- END nav -->
+
+
+<script>
+  const user_id = localStorage.getItem("user_loggedin");
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      var cookies = document.cookie.split(";");
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  
+  async function getUserData() {
+    let csrftoken = getCookie('csrftoken');
+    const req = await fetch("http://127.0.0.1:8000/api/userdata", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+         "X-CSRFToken": csrftoken ,
+      },
+      body: JSON.stringify({
+        user_id: user_id,
+      }),
+    });
+    if(req){
+      const res = await req.text()
+      const parsedRes = JSON.parse(res)
+      document.getElementById("signin").innerHTML = parsedRes.username
+    }
+  }
+  getUserData()
+</script>
