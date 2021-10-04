@@ -6,7 +6,7 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'password', 'first_name',
-                  'last_name', 'phone_number', 'email_address')
+                  'last_name',)
 
 
 class CarForm(forms.ModelForm):

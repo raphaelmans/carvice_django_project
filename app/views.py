@@ -36,6 +36,29 @@ class SignUpView(View):
     def get(self, request):
         return render(request, 'pages/signup.html', {})
 
+    def post(self, request):
+            form = UserForm(request.POST)
+
+            if form.is_valid():
+                fname = request.POST.get("first_name")
+                lname = request.POST.get("last_name")
+                un = request.POST.get("username")
+                pw = request.POST.get("password")
+                
+                #username filtering
+                if(User.objects.filter(username = un).exists()):
+                    messages.error(request, "Username already exists")
+                    # return HttpResponse('not valid')
+                    return redirect('app:sign_up') 
+
+                else: 
+                    form = User(username = un, password = pw,first_name = fname, last_name = lname, is_admin=0) 
+                    form.save()
+                    return redirect('app:index')
+            
+            else:
+                print(form.errors)
+
 
 class SignInView(View):
 
