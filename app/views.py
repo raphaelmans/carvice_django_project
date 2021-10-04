@@ -86,6 +86,10 @@ class DashboardView(View):
             'admin': admin,
         }
         return render(request, 'pages/admin/dashboard.html', context)
+    
+    
+
+
 
 
 class UserRegistrationView(View):
