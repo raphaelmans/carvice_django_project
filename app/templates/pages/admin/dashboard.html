@@ -31,7 +31,8 @@
         <div class="row">
             <div class="col align-self-end text-right">
                 <div class="form-group">
-                    <a href="{% url 'app:user_registration_view' %}"> <button type="button" class="btn btn-primary"> Insert</button> </a>
+                    <a href="{% url 'app:user_registration_view' %}"> <button type="button" class="btn btn-primary">
+                            Insert</button> </a>
                 </div>
             </div>
         </div>
@@ -59,8 +60,13 @@
                         <td>{{user.first_name}}</td>
                         <td>{{user.last_name}}</td>
                         <td> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
-                                data-target="#viewUserModal" onclick="handleUserModal('{{user.user_id}}')"><i class="fas fa-eye"></i></button>
-                            <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal" onclick="deleteUserById('{{user.user_id}}')"><i class="fas fa-trash"></i></button>
+                                data-target="#viewUserModal" onclick="handleUserModal('{{user.user_id}}')"><i
+                                    class="fas fa-eye"></i></button>
+                            <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
+                                data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+                            {% comment %} <button class="btn btn-danger btn-sm waves-effect waves-light ml-3"
+                                data-toggle="modal" onclick="deleteUserById('{{user.user_id}}')"><i
+                                    class="fas fa-trash"></i></button> {% endcomment %}
                         </td>
                         <!-- <td>{{user.phone_number}}</td>
                         <td>{{user.email_address}}</td>
@@ -71,6 +77,7 @@
             </table>
 
         </div>
+    </div>
 
 </section>
 
@@ -85,7 +92,8 @@
         <div class="row">
             <div class="col align-self-end text-right">
                 <div class="form-group">
-                   <a href="{% url 'app:car_registration_view' %}"> <button type="button" class="btn btn-primary"> Insert</button> </a>
+                    <a href="{% url 'app:car_registration_view' %}"> <button type="button" class="btn btn-primary">
+                            Insert</button> </a>
                 </div>
             </div>
         </div>
@@ -111,14 +119,14 @@
                         <td> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
                                 data-target="#viewCarModal"><i class="fas fa-eye"></i></button>
                             <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                                 data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+                                data-target="#exampleModal"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-
         </div>
+    </div>
 
 </section>
 
@@ -133,7 +141,8 @@
         <div class="row">
             <div class="col align-self-end text-right">
                 <div class="form-group">
-                  <a href="{% url 'app:rentalcar_registration_view' %}"> <button type="button" class="btn btn-primary"> Insert</button> </a>
+                    <a href="{% url 'app:rentalcar_registration_view' %}"> <button type="button"
+                            class="btn btn-primary"> Insert</button> </a>
                 </div>
             </div>
         </div>
@@ -159,15 +168,14 @@
                         <td> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
                                 data-target="#viewRentalCarModal"><i class="fas fa-eye"></i></button>
                             <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                                  data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+                                data-target="#exampleModal"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-
         </div>
-
+    </div>
 </section>
 
 <section class="ftco-section services-section ftco-no-pt ftco-no-pb mt-5">
@@ -180,7 +188,8 @@
         <div class="row">
             <div class="col align-self-end text-right">
                 <div class="form-group">
-                    <a href="{% url 'app:booking_registration_view' %}"> <button type="button" class="btn btn-primary"> Insert</button> </a>
+                    <a href="{% url 'app:booking_registration_view' %}"> <button type="button" class="btn btn-primary">
+                            Insert</button> </a>
                 </div>
             </div>
         </div>
@@ -213,16 +222,16 @@
                         <td>{{bk.pickup_time}}</td>
                         <td>{{bk.dropoff_time}}</td>
                         <td> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
-                            data-target="#viewBookingModal"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                             data-target="#exampleModal"><i class="fas fa-trash"></i></button>
-                    </td>
+                                data-target="#viewBookingModal"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
+                                data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-
         </div>
+    </div>
 
 </section>
 
@@ -236,7 +245,8 @@
         <div class="row">
             <div class="col align-self-end text-right">
                 <div class="form-group">
-                    <a href="{% url 'app:admin_registration_view' %}"> <button type="button" class="btn btn-primary"> Insert</button> </a>
+                    <a href="{% url 'app:admin_registration_view' %}"> <button type="button" class="btn btn-primary">
+                            Insert</button> </a>
                 </div>
             </div>
         </div>
@@ -255,15 +265,16 @@
                         <td scope="row">{{admin.admin_id}}</td>
                         <td>{{admin.user_id_id}}</td>
                         <td> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
-                            data-target="#viewAdminModal"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                             data-target="#exampleModal"><i class="fas fa-trash"></i></button>
-                    </td>
+                                data-target="#viewAdminModal"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
+                                data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+    </div>
 </section>
 
 <section class="ftco-section services-section ftco-no-pt ftco-no-pb mt-5">
@@ -276,7 +287,8 @@
         <div class="row">
             <div class="col align-self-end text-right">
                 <div class="form-group">
-                    <a href="{% url 'app:confirmation_registration_view' %}"> <button type="button" class="btn btn-primary"> Insert</button> </a>
+                    <a href="{% url 'app:confirmation_registration_view' %}"> <button type="button"
+                            class="btn btn-primary"> Insert</button> </a>
                 </div>
             </div>
         </div>
@@ -297,15 +309,16 @@
                         <td>{{confirm.admin_id_id}}</td>
                         <td>{{confirm.date}}</td>
                         <td> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
-                            data-target="#viewConfirmationModal"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                             data-target="#exampleModal"><i class="fas fa-trash"></i></button>
-                    </td>
+                                data-target="#viewConfirmationModal"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
+                                data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+    </div>
 </section>
 
 <section class="ftco-section services-section ftco-no-pt ftco-no-pb mt-5">
@@ -318,7 +331,8 @@
         <div class="row">
             <div class="col align-self-end text-right">
                 <div class="form-group">
-                    <a href="{% url 'app:bill_registartion_view' %}"> <button type="button" class="btn btn-primary"> Insert</button> </a>
+                    <a href="{% url 'app:bill_registartion_view' %}"> <button type="button" class="btn btn-primary">
+                            Insert</button> </a>
                 </div>
             </div>
         </div>
@@ -339,15 +353,16 @@
                         <td>{{bill.booking_id_id}}</td>
                         <td>{{bill.total_fee}}</td>
                         <td> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
-                            data-target="#viewBillModal"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                             data-target="#exampleModal"><i class="fas fa-trash"></i></button>
-                    </td>
+                                data-target="#viewBillModal"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
+                                data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+    </div>
 </section>
 
 {%include "../../components/admin/view_modals.html"%}

@@ -76,6 +76,13 @@ class DashboardView(View):
         confirmation = Confirmation.objects.all()
         bill = Bill.objects.all()
         admin = Admin.objects.all()
+        user_count = User.objects.all().count()
+        car_count = Car.objects.all().count()
+        rental_count = Rental_Car.objects.all().count()
+        booking_count = Booking.objects.all().count()
+        admin_count = Admin.objects.all().count()
+        bill_count = Bill.objects.all().count()
+        confirmation_count = Confirmation.objects.all().count()
         context = {
             'user': user,
             'car': car,
@@ -84,6 +91,13 @@ class DashboardView(View):
             'confirmation': confirmation,
             'bill': bill,
             'admin': admin,
+            "user_count": user_count,
+            "rental_count": rental_count,
+            "car_count": car_count,
+            "admin_count": admin_count,
+            "bill_count": bill_count,
+            "booking_count": booking_count,
+            "confirmation_count": confirmation_count,
         }
         return render(request, 'pages/admin/dashboard.html', context)
     

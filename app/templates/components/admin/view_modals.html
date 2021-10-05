@@ -17,7 +17,8 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="id_firstname" class="form-label">First name</label>
-                                <input type="text" class="form-control" id="modal_user_firstname" name="first_name" required>
+                                <input type="text" class="form-control" id="modal_user_firstname" name="first_name"
+                                    required>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
@@ -34,6 +35,32 @@
                             </div>
                             <div class="invalid-feedback">
                                 Please enter last name
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="id_email" class="form-label">Email</label>
+                                <div class="input-group has-validation">
+                                    <input type="Email" class="form-control" id="modal_user_email" name="email_address"
+                                        required>
+                                    <div class="invalid-feedback">
+                                        Please enter an email.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col">
+                            <label for="id_phone" class="form-label">Phone</label>
+                            <div class="input-group has-validation">
+                                <input type="text" class="form-control" id="modal_user_phone" name="phone_number"
+                                    required>
+                                <div class="invalid-feedback">
+                                    Please enter a phone.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -60,7 +87,7 @@
                             </div>
                         </div>
                     </div>
-<!-- 
+                    <!-- 
                     <div class="form-group">
                         <label for="id_isAdmin">Admin</label>
                         <select class="form-control" id="id_isAdmin" required>
@@ -229,48 +256,104 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="id_car">Car</label>
-                                <select class="form-control" id="id_car" name="car_id" required>
-                                    <option value="" selected hidden>Select Car</option>
-                                    <option value=""> Car</option>
+                                <label for="user_id">User</label>
+                                <select class="form-control" id="user_id" name="user_id" required>
+                                    <option value="" selected hidden>Select User</option>
+                                    {% for user in user %}
+                                    <option value="{{user.user_id}}"> {{user.username}}</option>
+                                    {% endfor %}
                                 </select>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Please enter last name
+                                    Please select user
                                 </div>
                             </div>
-
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="id_avail">Availability</label>
-                        <select class="form-control" id="id_avail" name="availability" required>
-                            <option value="" selected hidden>Is it available?</option>
-                            <option value="1"> Yes</option>
-                            <option value="0"> No</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please select an availability
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="id_fee" class="form-label">Fee Per Day</label>
-                        <div class="input-group has-validation">
-                            <input type="text" class="form-control" id="id_fee" name="fee_per_day" required>
-                            <div class="invalid-feedback">
-                                Please enter a fee.
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="rent_id">Rental Car</label>
+                                <select class="form-control" id="rent_id" name="rent_id" required>
+                                    <option value="" selected hidden>Select Car</option>
+                                    {% for rc in rental_car %}
+                                    <option value="{{rc.rent_id}}">{{rc.car_id.brand}} {{rc.car_id.model}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please select car
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- <div class="form-group">
-              <label for="inputDueDate">Due Date: </label>
-              <input type="date" class="form-control" id="inputDueDate"></input>
-            </div> -->
+                    <div class="form-group">
+                        <label for="pickup_location" class="form-label">Pick Up Location</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" name="pickup_location" id="pickup_location"
+                                required />
+                            <div class="invalid-feedback">Please choose a Pick Up Location.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dropoff_location" class="form-label">Drop Off Location</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" name="dropoff_location" id="dropoff_location"
+                                required />
+                            <div class="invalid-feedback">Please choose a Drop Off Location.</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="pickup_date" class="form-label">Pick Up Date</label>
+                                <div class="input-group has-validation">
+                                    <input type="date" class="form-control" default="{{date_now}}" name="pickup_date"
+                                        id="pickup_date" required />
+                                    <div class="invalid-feedback">Please choose a pick up date.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="dropoff_date" class="form-label">Drop Off Date</label>
+                                <div class="input-group has-validation">
+                                    <input type="date" class="form-control" name="dropoff_date" id="dropoff_date"
+                                        required />
+                                    <div class="invalid-feedback">Please choose a Drop Off date.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="pickup_time" class="form-label">Pick Up Time</label>
+                                <div class="input-group has-validation">
+                                    <input type="time" class="form-control" name="pickup_time" id="pickup_time"
+                                        required />
+                                    <div class="invalid-feedback">Please choose a Pick Up Time.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="dropoff_time" class="form-label">Drop Off Time</label>
+                                <div class="input-group has-validation">
+                                    <input type="time" class="form-control" name="dropoff_time" id="dropoff_time"
+                                        required />
+                                    <div class="invalid-feedback">Please choose a Drop Off Time.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-footer">
@@ -298,41 +381,32 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="id_car">Car</label>
-                                <select class="form-control" id="id_car" name="car_id" required>
-                                    <option value="" selected hidden>Select Car</option>
-                                    <option value=""> Car</option>
+                                <label for="user_id">User</label>
+                                <select class="form-control" id="user_id" name="user_id" required>
+                                    <option value="" selected hidden>Select User</option>
+                                    {% for user in user %}
+                                    <option value="{{user.user_id}}"> {{user.username}}</option>
+                                    {% endfor %}
                                 </select>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
                                 <div class="invalid-feedback">
-                                    Please enter last name
+                                    Please select user
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="id_avail">Availability</label>
+                        <label for="id_admin">Admin</label>
                         <select class="form-control" id="id_avail" name="availability" required>
-                            <option value="" selected hidden>Is it available?</option>
+                            <option value="" selected hidden>Is the user an admin?</option>
                             <option value="1"> Yes</option>
                             <option value="0"> No</option>
                         </select>
                         <div class="invalid-feedback">
-                            Please select an availability
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="id_fee" class="form-label">Fee Per Day</label>
-                        <div class="input-group has-validation">
-                            <input type="text" class="form-control" id="id_fee" name="fee_per_day" required>
-                            <div class="invalid-feedback">
-                                Please enter a fee.
-                            </div>
+                            Please select an option
                         </div>
                     </div>
 
@@ -364,51 +438,53 @@
             </div>
             <form method="" id="viewRentalCar" class="needs-validation" novalidate>
                 <div class="modal-body">
+                    <div class="form-group">
+                        <label for="booking_id">Booking ID</label>
+                        <select class="form-control" id="booking_id" name="booking_id" required>
+                            <option value="" selected hidden>Select Booking ID</option>
+                            {% for bk in bookings %}
+                            <option value="{{bk.booking_id}}">{{bk.booking_id}}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please select booking</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="admin_id">Admin ID</label>
+                        <select class="form-control" id="admin_id" name="admin_id" required>
+                            <option value="" selected hidden>Select Admin ID</option>
+                            {% for admin in admins %}
+                            <option value="{{admin.admin_id}}">{{admin.admin_id}}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please select admin</div>
+                    </div>
+
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="id_car">Car</label>
-                                <select class="form-control" id="id_car" name="car_id" required>
-                                    <option value="" selected hidden>Select Car</option>
-                                    <option value=""> Car</option>
-                                </select>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please enter last name
+                                <label for="confimation_date" class="form-label">Confirmation Date</label>
+                                <div class="input-group has-validation">
+                                    <input type="date" class="form-control" default="{{date_now}}"
+                                        name="confimation_date" id="pickup_date" required />
+                                    <div class="invalid-feedback">Please choose a pick up date.</div>
                                 </div>
                             </div>
-
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="id_avail">Availability</label>
-                        <select class="form-control" id="id_avail" name="availability" required>
-                            <option value="" selected hidden>Is it available?</option>
-                            <option value="1"> Yes</option>
-                            <option value="0"> No</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please select an availability
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="id_fee" class="form-label">Fee Per Day</label>
-                        <div class="input-group has-validation">
-                            <input type="text" class="form-control" id="id_fee" name="fee_per_day" required>
-                            <div class="invalid-feedback">
-                                Please enter a fee.
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="confirmation_time" class="form-label">Confirmation Time</label>
+                                <div class="input-group has-validation">
+                                    <input type="time" class="form-control" name="confirmation_time"
+                                        id="confirmation_time" required />
+                                    <div class="invalid-feedback">Please choose a Drop Off date.</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div class="form-group">
-              <label for="inputDueDate">Due Date: </label>
-              <input type="date" class="form-control" id="inputDueDate"></input>
-            </div> -->
                 </div>
 
                 <div class="modal-footer">
@@ -433,43 +509,23 @@
             </div>
             <form method="" id="viewRentalCar" class="needs-validation" novalidate>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="id_car">Car</label>
-                                <select class="form-control" id="id_car" name="car_id" required>
-                                    <option value="" selected hidden>Select Car</option>
-                                    <option value=""> Car</option>
-                                </select>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please enter last name
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
                     <div class="form-group">
-                        <label for="id_avail">Availability</label>
-                        <select class="form-control" id="id_avail" name="availability" required>
-                            <option value="" selected hidden>Is it available?</option>
-                            <option value="1"> Yes</option>
-                            <option value="0"> No</option>
+                        <label for="booking_id">Booking ID</label>
+                        <select class="form-control" id="booking_id" name="booking_id" required>
+                            <option value="" selected hidden>Select Booking ID</option>
+                            {% for bk in bookings %}
+                            <option value="{{bk.booking_id}}">{{bk.booking_id}}</option>
+                            {% endfor %}
                         </select>
-                        <div class="invalid-feedback">
-                            Please select an availability
-                        </div>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please select booking</div>
                     </div>
-
                     <div class="form-group">
-                        <label for="id_fee" class="form-label">Fee Per Day</label>
+                        <label for="total_fee" class="form-label">Total Fee</label>
                         <div class="input-group has-validation">
-                            <input type="text" class="form-control" id="id_fee" name="fee_per_day" required>
+                            <input type="number" min="0" class="form-control" id="total_fee" name="total_fee" required>
                             <div class="invalid-feedback">
-                                Please enter a fee.
+                                Please enter total fee.
                             </div>
                         </div>
                     </div>
@@ -488,6 +544,3 @@
         </div>
     </div>
 </div>
-
-
-
