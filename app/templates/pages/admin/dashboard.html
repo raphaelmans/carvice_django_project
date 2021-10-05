@@ -112,7 +112,7 @@
                         <td> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
                                 data-target="#viewCarModal"><i class="fas fa-eye"></i></button>
                             <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                                data-target=".bd-example-modal-lg"><i class="fas fa-trash"></i></button>
+                                 data-target="#exampleModal"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                     {% endfor %}
@@ -160,7 +160,7 @@
                         <td> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
                                 data-target="#viewRentalCarModal"><i class="fas fa-eye"></i></button>
                             <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                                data-target=".bd-example-modal-lg"><i class="fas fa-trash"></i></button>
+                                  data-target="#exampleModal"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                     {% endfor %}
@@ -198,6 +198,7 @@
                         <th scope="col">Drop off date</th>
                         <th scope="col">Pick up time</th>
                         <th scope="col">Drop off time</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
@@ -212,6 +213,11 @@
                         <td>{{bk.dropoff_date}}</td>
                         <td>{{bk.pickup_time}}</td>
                         <td>{{bk.dropoff_time}}</td>
+                        <td> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
+                            data-target="#viewBookingModal"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
+                             data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+                    </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -241,6 +247,7 @@
                     <tr>
                         <th scope="col">Admin Id</th>
                         <th scope="col">User Id</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
@@ -248,6 +255,11 @@
                     <tr>
                         <td scope="row">{{admin.admin_id}}</td>
                         <td>{{admin.user_id_id}}</td>
+                        <td> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
+                            data-target="#viewAdminModal"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
+                             data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+                    </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -276,6 +288,7 @@
                         <th scope="col">Booking Id</th>
                         <th scope="col">Admin Id</th>
                         <th scope="col">Confirmation Date</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
@@ -284,6 +297,11 @@
                         <td scope="row">{{confirm.booking_id_id}}</td>
                         <td>{{confirm.admin_id_id}}</td>
                         <td>{{confirm.date}}</td>
+                        <td> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
+                            data-target="#viewConfirmationModal"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
+                             data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+                    </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -312,6 +330,7 @@
                         <th scope="col">Bill no</th>
                         <th scope="col">Booking Id</th>
                         <th scope="col">Total Fee</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
@@ -320,6 +339,11 @@
                         <td scope="row">{{bill.bill_no}}</td>
                         <td>{{bill.booking_id_id}}</td>
                         <td>{{bill.total_fee}}</td>
+                        <td> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
+                            data-target="#viewBillModal"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
+                             data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+                    </td>
                     </tr>
                     {% endfor %}
                 </tbody>

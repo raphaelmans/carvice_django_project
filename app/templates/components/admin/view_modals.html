@@ -5,7 +5,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Insert User</h5>
+                <h5 class="modal-title" id="exampleModalLabel">View User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -93,7 +93,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Insert Car</h5>
+                <h5 class="modal-title" id="exampleModalLabel">View Car</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -142,13 +142,13 @@
 </div>
 
 
-<!-- Insert Rental Car Modal-->
+<!-- View Rental Car Modal-->
 <div class="modal fade" id="viewRentalCarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Insert Rental Car</h5>
+                <h5 class="modal-title" id="exampleModalLabel">View Rental Car</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -210,4 +210,283 @@
         </div>
     </div>
 </div>
+
+
+<!-- View Booking Car Modal-->
+<div class="modal fade" id="viewBookingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">View Booking Car</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="" id="viewRentalCar" class="needs-validation" novalidate>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="id_car">Car</label>
+                                <select class="form-control" id="id_car" name="car_id" required>
+                                    <option value="" selected hidden>Select Car</option>
+                                    <option value=""> Car</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please enter last name
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_avail">Availability</label>
+                        <select class="form-control" id="id_avail" name="availability" required>
+                            <option value="" selected hidden>Is it available?</option>
+                            <option value="1"> Yes</option>
+                            <option value="0"> No</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select an availability
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_fee" class="form-label">Fee Per Day</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" id="id_fee" name="fee_per_day" required>
+                            <div class="invalid-feedback">
+                                Please enter a fee.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group">
+              <label for="inputDueDate">Due Date: </label>
+              <input type="date" class="form-control" id="inputDueDate"></input>
+            </div> -->
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- View Admin Modal-->
+<div class="modal fade" id="viewAdminModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">View Admin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="" id="viewRentalCar" class="needs-validation" novalidate>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="id_car">Car</label>
+                                <select class="form-control" id="id_car" name="car_id" required>
+                                    <option value="" selected hidden>Select Car</option>
+                                    <option value=""> Car</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please enter last name
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_avail">Availability</label>
+                        <select class="form-control" id="id_avail" name="availability" required>
+                            <option value="" selected hidden>Is it available?</option>
+                            <option value="1"> Yes</option>
+                            <option value="0"> No</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select an availability
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_fee" class="form-label">Fee Per Day</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" id="id_fee" name="fee_per_day" required>
+                            <div class="invalid-feedback">
+                                Please enter a fee.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group">
+              <label for="inputDueDate">Due Date: </label>
+              <input type="date" class="form-control" id="inputDueDate"></input>
+            </div> -->
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- View Confirmation Car Modal-->
+<div class="modal fade" id="viewConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">View Confirmation </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="" id="viewRentalCar" class="needs-validation" novalidate>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="id_car">Car</label>
+                                <select class="form-control" id="id_car" name="car_id" required>
+                                    <option value="" selected hidden>Select Car</option>
+                                    <option value=""> Car</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please enter last name
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_avail">Availability</label>
+                        <select class="form-control" id="id_avail" name="availability" required>
+                            <option value="" selected hidden>Is it available?</option>
+                            <option value="1"> Yes</option>
+                            <option value="0"> No</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select an availability
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_fee" class="form-label">Fee Per Day</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" id="id_fee" name="fee_per_day" required>
+                            <div class="invalid-feedback">
+                                Please enter a fee.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group">
+              <label for="inputDueDate">Due Date: </label>
+              <input type="date" class="form-control" id="inputDueDate"></input>
+            </div> -->
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- View Bill Modal-->
+<div class="modal fade" id="viewBillModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">View Bill</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="" id="viewRentalCar" class="needs-validation" novalidate>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="id_car">Car</label>
+                                <select class="form-control" id="id_car" name="car_id" required>
+                                    <option value="" selected hidden>Select Car</option>
+                                    <option value=""> Car</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please enter last name
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_avail">Availability</label>
+                        <select class="form-control" id="id_avail" name="availability" required>
+                            <option value="" selected hidden>Is it available?</option>
+                            <option value="1"> Yes</option>
+                            <option value="0"> No</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select an availability
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_fee" class="form-label">Fee Per Day</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" id="id_fee" name="fee_per_day" required>
+                            <div class="invalid-feedback">
+                                Please enter a fee.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group">
+              <label for="inputDueDate">Due Date: </label>
+              <input type="date" class="form-control" id="inputDueDate"></input>
+            </div> -->
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
