@@ -18,25 +18,33 @@
       <div class="card-body">
         <div class="row">
           <div class="col-6 col-md-3 text-center">
-            <div style="display:inline;width:90px;height:90px;"><canvas width="90" height="90"></canvas><input type="text" class="knob" value="30" data-width="90" data-height="90" data-fgcolor="#3c8dbc" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(60, 141, 188); padding: 0px; appearance: none;"></div>
+            <div style="display:inline;width:90px;height:90px;"><canvas width="90" height="90"></canvas><input 
+              id="chart_user"
+              type="text" class="knob" value="30" data-width="90" data-height="90" data-fgcolor="#3c8dbc" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(60, 141, 188); padding: 0px; appearance: none;"></div>
 
             <div class="knob-label">Users</div>
           </div>
           <!-- ./col -->
           <div class="col-6 col-md-3 text-center">
-            <div style="display:inline;width:90px;height:90px;"><canvas width="90" height="90"></canvas><input type="text" class="knob" value="70" data-width="90" data-height="90" data-fgcolor="#f56954" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(245, 105, 84); padding: 0px; appearance: none;"></div>
+            <div style="display:inline;width:90px;height:90px;"><canvas width="90" height="90"></canvas><input 
+              id="chart_car"
+              type="text" class="knob" value="70" data-width="90" data-height="90" data-fgcolor="#f56954" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(245, 105, 84); padding: 0px; appearance: none;"></div>
 
             <div class="knob-label">Cars</div>
           </div>
           <!-- ./col -->
           <div class="col-6 col-md-3 text-center">
-            <div style="display:inline;width:90px;height:90px;"><canvas width="90" height="90"></canvas><input type="text" class="knob" value="-80" data-min="-150" data-max="150" data-width="90" data-height="90" data-fgcolor="#00a65a" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(0, 166, 90); padding: 0px; appearance: none;"></div>
+            <div style="display:inline;width:90px;height:90px;"><canvas width="90" height="90"></canvas><input 
+              id="chart_rentalcar"
+              type="text" class="knob" value="-80" data-min="-150" data-max="150" data-width="90" data-height="90" data-fgcolor="#00a65a" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(0, 166, 90); padding: 0px; appearance: none;"></div>
 
             <div class="knob-label">Rental Cars</div>
           </div>
           <!-- ./col -->
           <div class="col-6 col-md-3 text-center">
-            <div style="display:inline;width:90px;height:90px;"><canvas width="90" height="90"></canvas><input type="text" class="knob" value="40" data-width="90" data-height="90" data-fgcolor="#00c0ef" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(0, 192, 239); padding: 0px; appearance: none;"></div>
+            <div style="display:inline;width:90px;height:90px;"><canvas width="90" height="90"></canvas><input 
+              id="chart_booking"
+              type="text" class="knob" value="40" data-width="90" data-height="90" data-fgcolor="#00c0ef" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(0, 192, 239); padding: 0px; appearance: none;"></div>
 
             <div class="knob-label">Bookings</div>
           </div>
@@ -45,16 +53,27 @@
         <!-- /.row -->
 
         <div class="row">
-          <div class="col-6 text-center">
-            <div style="display:inline;width:90px;height:90px;"><canvas width="90" height="90"></canvas><input type="text" class="knob" value="90" data-width="90" data-height="90" data-fgcolor="#932ab6" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(147, 42, 182); padding: 0px; appearance: none;"></div>
+          <div class="col-4 text-center">
+            <div style="display:inline;width:90px;height:90px;"><canvas width="90" height="90"></canvas><input 
+              id="chart_admin"
+              type="text" class="knob" value="90" data-width="90" data-height="90" data-fgcolor="#932ab6" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(147, 42, 182); padding: 0px; appearance: none;"></div>
 
             <div class="knob-label">Admin</div>
           </div>
           <!-- ./col -->
-          <div class="col-6 text-center">
-            <div style="display:inline;width:90px;height:90px;"><canvas width="90" height="90"></canvas><input type="text" class="knob" value="50" data-width="90" data-height="90" data-fgcolor="#39CCCC" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(57, 204, 204); padding: 0px; appearance: none;"></div>
+          <div class="col-4 text-center">
+            <div style="display:inline;width:90px;height:90px;"><canvas width="90" height="90"></canvas><input 
+              id="chart_confirmation"
+              type="text" class="knob" value="50" data-width="90" data-height="90" data-fgcolor="#39CCCC" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(57, 204, 204); padding: 0px; appearance: none;"></div>
 
             <div class="knob-label">Confirmation</div>
+          </div>
+          <div class="col-4 text-center">
+            <div style="display:inline;width:90px;height:90px;"><canvas width="90" height="90"></canvas><input 
+              id="chart_bill"
+              type="text" class="knob" value="50" data-width="90" data-height="90" data-fgcolor="#39CCCC" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(57, 204, 204); padding: 0px; appearance: none;"></div>
+
+            <div class="knob-label">Bill</div>
           </div>
           <!-- ./col -->
         </div>

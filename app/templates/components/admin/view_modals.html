@@ -11,12 +11,13 @@
                 </button>
             </div>
             <form method="" id="viewUser" class="needs-validation" novalidate>
+                <input type="text" id="modal_user_userid" name="user_id" hidden>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <label for="id_firstname" class="form-label">First name</label>
-                                <input type="text" class="form-control" id="id_firstname" name="first_name" required>
+                                <input type="text" class="form-control" id="modal_user_firstname" name="first_name" required>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
@@ -27,7 +28,7 @@
                         </div>
                         <div class="col">
                             <label for="id_lastname" class="form-label">Last name</label>
-                            <input type="text" class="form-control" id="id_lastname" name="last_name" required>
+                            <input type="text" class="form-control" id="modal_user_lastname" name="last_name" required>
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
@@ -41,7 +42,7 @@
                         <label for="id_username" class="form-label">Username</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            <input type="text" class="form-control" id="id_username"
+                            <input type="text" class="form-control" id="modal_user_username"
                                 aria-describedby="inputGroupPrepend" name="username" required>
                             <div class="invalid-feedback">
                                 Please choose a username.
@@ -52,7 +53,7 @@
                     <div class="form-group">
                         <label for="id_password" class="form-label">Password</label>
                         <div class="input-group has-validation">
-                            <input type="password" class="form-control" name="password" id="id_password"
+                            <input type="password" class="form-control" name="password" id="modal_user_password"
                                 required>
                             <div class="invalid-feedback">
                                 Please enter a password.
@@ -80,7 +81,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="updateUserById()">Save</button>
                 </div>
             </form>
         </div>
