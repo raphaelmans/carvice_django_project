@@ -22,5 +22,5 @@ urlpatterns = [
 
     # api link
     path('api/userById', apis.UserByID.as_view(), name='api_getUserById'),
-    path('api/chartData', apis.ChartData.as_view(), name='api_chartData'),
+    #path('api/chartData', apis.ChartData.as_view(), name='api_chartData'),
 ]

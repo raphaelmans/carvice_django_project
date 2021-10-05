@@ -51,20 +51,22 @@ class UserByID(View):
         return JsonResponse(data)
 
 
-class ChartData(View):
-    def get(self, request):
-        user_count = User.objects.all().count()
-        car_count = Car.objects.all().count()
-        rental_count = Rental_Car.objects.all().count()
-        booking_count = Booking.objects.all().count()
-        admin_count = Admin.objects.all().count()
-        bill_count = Bill.objects.all().count()
-        confirmation_count = Confirmation.objects.all().count()
-        return JsonResponse({"user_count": user_count,
-                             "rental_count": rental_count,
-                             "car_count": car_count,
-                             "admin_count": admin_count,
-                             "bill_count": bill_count,
-                             "booking_count": booking_count,
-                             "confirmation_count": confirmation_count,
-                             })
+# class ChartData(View):
+#     def get(self, request):
+#         user_count = User.objects.all().count()
+#         car_count = Car.objects.all().count()
+#         rental_count = Rental_Car.objects.all().count()
+#         booking_count = Booking.objects.all().count()
+#         admin_count = Admin.objects.all().count()
+#         bill_count = Bill.objects.all().count()
+#         confirmation_count = Confirmation.objects.all().count()
+#         return JsonResponse({"user_count": user_count,
+#                              "rental_count": rental_count,
+#                              "car_count": car_count,
+#                              "admin_count": admin_count,
+#                              "bill_count": bill_count,
+#                              "booking_count": booking_count,
+#                              "confirmation_count": confirmation_count,
+#                              })
+
+
