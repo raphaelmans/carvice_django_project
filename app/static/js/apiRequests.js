@@ -20,26 +20,43 @@ async function updateUserById() {
     }),
   });
   if (res.status == 200) {
-    alert("Update Success");
     location.reload();
   }
 }
 
-async function deleteUserById(user_id){  
-    const res = await fetch("http://127.0.0.1:8000/api/userById", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": csrftoken,
-      },
-      body: JSON.stringify({
-        user_id: user_id,
-      }),
-    });
-    if (res.status == 200) {
-      alert("DELETE SUCCESS");
-      location.reload();
-    }
+
+async function openDeleteModal(user_id,model_type){  
+    $("#deleteConfirmModal").modal('show')
+    $("#delete_id").val(user_id)
+    $("#delete_model_type").val(model_type)
+}
+
+
+async function deleteById() {
+  const model_type = $("#delete_model_type").val();
+  const id = $("#delete_id").val();
+  let deleteLink = "http://127.0.0.1:8000/api";
+  let reqBodyValue = null;
+  switch (model_type) {
+    case "USER":
+      deleteLink = `${deleteLink}/userById`;
+      reqBodyValue = JSON.stringify({
+        user_id: id,
+      });
+      break;
+  }
+  const res = await fetch(deleteLink, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken,
+    },
+    body: reqBodyValue,
+  });
+
+  if (res.status == 200) {
+    location.reload();
+  }
 }
 
 
