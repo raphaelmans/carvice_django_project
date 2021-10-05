@@ -5,97 +5,105 @@
 <h4><b>Add Booking</b></h4>
 
 <div class="row">
-    <div class="col-6">
-        <div class="form-group">
-            <label for="user_id">User</label>
-            <select class="form-control" id="user_id" name="user_id" required>
-              <option value="" selected hidden>Select User</option>
-                {% for user in user %}
-              <option value="{{user.user_id}}"> {{user.username}}</option>
-                {% endfor %}
-            </select>
-            <div class="valid-feedback">
-              Looks good!
-            </div>
-            <div class="invalid-feedback">
-              Please select user
-            </div>
-        </div>
+  <div class="col-6">
+    <div class="form-group">
+      <label for="user_id">User</label>
+      <select class="form-control" id="user_id" name="user_id" required>
+        <option value="" selected hidden>Select User</option>
+        {% for user in user %}
+        <option value="{{user.user_id}}"> {{user.username}}</option>
+        {% endfor %}
+      </select>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+      <div class="invalid-feedback">
+        Please select user
+      </div>
     </div>
-    <div class="col-6">
-        <div class="form-group">
-            <label for="rent_id">Rental Car</label>
-            <select class="form-control" id="rent_id" name="rent_id" required>
-              <option value="" selected hidden>Select Car</option>
-                {% for rc in rental_car %}
-              <option value="{{rc.rent_id}}">{{rc.car_id.brand}} {{rc.car_id.model}}</option>
-                {% endfor %}
-            </select>
-            <div class="valid-feedback">
-              Looks good!
-            </div>
-            <div class="invalid-feedback">
-              Please select car
-            </div>
-          </div>
-        </div>
-</div>
-
-<div class="form-group">
-  <label for="pickup_location" class="form-label">Pick Up Location</label>
-  <div class="input-group has-validation">
-    <input type="text" class="form-control" name="pickup_location" id="pickup_location" required />
-    <div class="invalid-feedback">Please choose a Pick Up Location.</div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+      <label for="rent_id">Rental Car</label>
+      <select class="form-control" id="rent_id" name="rent_id" required>
+        <option value="" selected hidden>Select Car</option>
+        {% for rc in rental_car %}
+        <option value="{{rc.rent_id}}">{{rc.car_id.brand}} {{rc.car_id.model}}</option>
+        {% endfor %}
+      </select>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+      <div class="invalid-feedback">
+        Please select car
+      </div>
+    </div>
   </div>
 </div>
-<div class="form-group">
-  <label for="dropoff_location" class="form-label">Drop Off Location</label>
-  <div class="input-group has-validation">
-    <input type="text" class="form-control" name="dropoff_location" id="dropoff_location" required />
-    <div class="invalid-feedback">Please choose a Drop Off Location.</div>
+
+
+<div class="row">
+  <div class="col-6">
+    <div class="form-group">
+      <label for="pickup_location" class="form-label">Pick Up Location</label>
+      <div class="input-group has-validation">
+        <input type="text" class="form-control" name="pickup_location" id="pickup_location" required />
+        <div class="invalid-feedback">Please choose a Pick Up Location.</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+      <label for="dropoff_location" class="form-label">Drop Off Location</label>
+      <div class="input-group has-validation">
+        <input type="text" class="form-control" name="dropoff_location" id="dropoff_location" required />
+        <div class="invalid-feedback">Please choose a Drop Off Location.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-6">
+    <div class="form-group">
+      <label for="pickup_date" class="form-label">Pick Up Date</label>
+      <div class="input-group has-validation">
+        <input type="date" class="form-control" default="{{date_now}}" name="pickup_date" id="pickup_date" required />
+        <div class="invalid-feedback">Please choose a pick up date.</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+      <label for="dropoff_date" class="form-label">Drop Off Date</label>
+      <div class="input-group has-validation">
+        <input type="date" class="form-control" name="dropoff_date" id="dropoff_date" required />
+        <div class="invalid-feedback">Please choose a Drop Off date.</div>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="row">
-    <div class="col-6">
-        <div class="form-group">
-            <label for="pickup_date" class="form-label">Pick Up Date</label>
-            <div class="input-group has-validation">
-              <input type="date" class="form-control" default="{{date_now}}" name="pickup_date" id="pickup_date" required />
-              <div class="invalid-feedback">Please choose a pick up date.</div>
-            </div>
-          </div>
+  <div class="col-6">
+    <div class="form-group">
+      <label for="pickup_time" class="form-label">Pick Up Time</label>
+      <div class="input-group has-validation">
+        <input type="time" class="form-control" name="pickup_time" id="pickup_time" required />
+        <div class="invalid-feedback">Please choose a Pick Up Time.</div>
+      </div>
     </div>
-    <div class="col-6">
-        <div class="form-group">
-            <label for="dropoff_date" class="form-label">Drop Off Date</label>
-            <div class="input-group has-validation">
-              <input type="date" class="form-control" name="dropoff_date" id="dropoff_date" required />
-              <div class="invalid-feedback">Please choose a Drop Off date.</div>
-            </div>
-          </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+      <label for="dropoff_time" class="form-label">Drop Off Time</label>
+      <div class="input-group has-validation">
+        <input type="time" class="form-control" name="dropoff_time" id="dropoff_time" required />
+        <div class="invalid-feedback">Please choose a Drop Off Time.</div>
+      </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-6">
-        <div class="form-group">
-            <label for="pickup_time" class="form-label">Pick Up Time</label>
-            <div class="input-group has-validation">
-              <input type="time" class="form-control" name="pickup_time" id="pickup_time" required />
-              <div class="invalid-feedback">Please choose a Pick Up Time.</div>
-            </div>
-          </div>
-    </div>
-    <div class="col-6">
-        <div class="form-group">
-            <label for="dropoff_time" class="form-label">Drop Off Time</label>
-            <div class="input-group has-validation">
-              <input type="time" class="form-control" name="dropoff_time" id="dropoff_time" required />
-              <div class="invalid-feedback">Please choose a Drop Off Time.</div>
-            </div>
-          </div>
-    </div>
+  </div>
 </div>
 
 <div class="form-group mt-5">
@@ -105,5 +113,3 @@
 </div>
 
 {%endblock form_content%}
-
-
