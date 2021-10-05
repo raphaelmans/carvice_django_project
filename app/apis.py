@@ -24,6 +24,8 @@ class UserByID(View):
         first_name = body['first_name']
         last_name = body['last_name']
         password = body['password']
+        phone_number = body['phone']
+        email_address = body['email']
 
         user = User.objects.get(user_id=user_id)
 
@@ -31,6 +33,8 @@ class UserByID(View):
         user.first_name = first_name
         user.last_name = last_name
         user.password = password
+        user.phone_number = phone_number
+        user.email_address = email_address
 
         user.save()
         data = {

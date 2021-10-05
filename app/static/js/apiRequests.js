@@ -4,6 +4,8 @@ async function updateUserById() {
   const last_name = $("#modal_user_lastname").val();
   const username = $("#modal_user_username").val();
   const password = $("#modal_user_password").val();
+  const phone = $("#modal_user_phone").val();
+  const email = $("#modal_user_email").val();
 
   const res = await fetch("http://127.0.0.1:8000/api/userById", {
     method: "PUT",
@@ -17,6 +19,8 @@ async function updateUserById() {
       first_name: first_name,
       last_name: last_name,
       password: password,
+      phone: phone,
+      email: email,
     }),
   });
   if (res.status == 200) {

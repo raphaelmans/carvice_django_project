@@ -14,10 +14,12 @@ async function handleUserModal(user_id){
     const jsonString = await res.text()
     if(res.status === 200){
         const parsedRes = JSON.parse(jsonString) 
-        $('#modal_user_firstname').val(parsedRes.first_name) // jquery
+        $('#modal_user_firstname').val(parsedRes.first_name)
         $('#modal_user_userid').val(parsedRes.user_id) 
         $('#modal_user_lastname').val(parsedRes.last_name)
         $('#modal_user_username').val(parsedRes.username)
         $('#modal_user_password').val(parsedRes.password)
+        $('#modal_user_phone').val(parsedRes.phone_number)
+        $('#modal_user_email').val(parsedRes.email_address)
     }
 }
