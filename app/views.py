@@ -10,7 +10,11 @@ from django.contrib import messages
 
 class IndexView(View):
     def get(self, request):
-        return render(request, 'pages/index.html', {})
+        rental_car = Rental_Car.objects.select_related('car_id').all()
+        context = {
+            'rental_car': rental_car,
+        }
+        return render(request, 'pages/index.html', context)
 
 
 class AboutUsView(View):
@@ -65,11 +69,10 @@ class SignInView(View):
     def get(self, request):
         return render(request, 'pages/signin.html', {})
 
-
 class DashboardView(View):
 
     def get(self, request):
-        user = User.objects.all()
+        user = User.objects.filter()
         car = Car.objects.all()
         rental_car = Rental_Car.objects.all()
         booking = Booking.objects.all()
@@ -99,15 +102,64 @@ class DashboardView(View):
             "booking_count": booking_count,
             "confirmation_count": confirmation_count,
         }
+
         return render(request, 'pages/admin/dashboard.html', context)
 
-  
+    def post(self,request):
+        if request.method == 'POST':
+            if 'btnUserSave' in request.POST:
+                uid = request.POST.get("user_id")
+                fname = request.POST.get("user_first_name")
+                lname = request.POST.get("user_last_name")
+                un = request.POST.get("user_username")
+                oun = request.POST.get("old_username")
+                pw = request.POST.get("user_password")
+                email = request.POST.get("user_email_address")
+                phone = request.POST.get("user_phone_number")
+
+                 #username filtering
+                if(un != oun):
+                    if(User.objects.filter(username = un).exists()):
+                        messages.error(request, "Username already exists")
+                else: 
+                    update_user = User.objects.filter(user_id = uid).update(username = un, password = pw,first_name = fname, last_name = lname,  phone_number = phone, email_address = email, is_admin=0)
+                    print(update_user)
+
+            elif 'btnUserDelete' in request.POST:
+                print('DELETE BUTTON IS CLICKED')
+                uid = request.POST.get("user_id")
+                us = User.objects.filter(user_id = uid).delete()
+                print('DELETE BUTTON IS CLICKED')
+
+            if 'btnCarSave' in request.POST:
+                print('Save BUTTON IS CLICKED')
+                cid = request.POST.get("car_id")
+                ml = request.POST.get("car_model")
+                bd = request.POST.get("car_brand")
+                yr = request.POST.get("car_year")
+                update_car = Car.objects.filter(car_id = cid).update(model=ml, brand=bd, year=yr)
+                print(update_car)
+            
+            elif 'btnCarDelete' in request.POST:
+                cid = request.POST.get("car_id")
+                cs = Car.objects.filter(car_id = cid).delete()
+                print('DELETE BUTTON IS CLICKED')
+            
+            if 'btnRentalSave' in request.POST:
+                rid = request.POST.get("rentalcar_id")
+                car = Car.objects.get(car_id=request.POST.get(
+                "rental_car_id"))  # returning the car instance
+                avail = request.POST.get("rental_availability")
+                fee = request.POST.get("rental_fee_per_day")
+                update_rent = Rental_Car.objects.filter(rent_id = rid).update(car_id = car, availability = avail, fee_per_day = fee)
+                print(update_rent)
+            
+            elif 'btnRentalDelete' in request.POST:
+                rid = request.POST.get("rentalcar_id")
+                cs = Rental_Car.objects.filter(rent_id = rid).delete()
+                print('DELETE BUTTON IS CLICKED')
         
-    
-    
-
-
-
+        return redirect('app:dashboard')
 
 class UserRegistrationView(View):
     def get(self, request):

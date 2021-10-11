@@ -9,80 +9,22 @@
           </div>
         </div>
     		<div class="row">
+			{% for rental_car in rental_car %}
     			<div class="col-md-3">
     				<div class="car-wrap ftco-animate">
-    					<div class="img d-flex align-items-end" style="background-image: url({%static "images/car-1.jpg"%});">
-    						{% comment %} <div class="price-wrap d-flex">
-    							<span class="rate">$25</span>
-    							<p class="from-day">
-    								<span>From</span>
-    								<span>/Day</span>
-    							</p>
-    						</div> {% endcomment %}
-    					</div>
+    				
     					<div class="text p-4 text-center">
-    						<h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
-    						<span>Mercedes</span>
+    						<h2 class="mb-0">{{rental_car.car_id.model}}<a href="#"></a></h2>
+    						<span>{{rental_car.car_id.brand}}</span>
 							<a  href="{% url 'app:booking_registration_view' %}"class="btn btn-black btn-outline-black mr-1">Book now</a>
     					</div>
     				</div>
     			</div>
-    			<div class="col-md-3">
-    				<div class="car-wrap ftco-animate">
-    					<div class="img d-flex align-items-end" style="background-image: url({%static "images/car-2.jpg"%});">
-    						{% comment %} <div class="price-wrap d-flex">
-    							<span class="rate">$25</span>
-    							<p class="from-day">
-    								<span>From</span>
-    								<span>/Day</span>
-    							</p>
-    						</div> {% endcomment %}
-    					</div>
-    					<div class="text p-4 text-center">
-    						<h2 class="mb-0"><a href="#">Ranger Rover</a></h2>
-    						<span>Land Rover</span>
-							<a  href="{% url 'app:booking_registration_view' %}"class="btn btn-black btn-outline-black mr-1">Book now</a>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-3">
-    				<div class="car-wrap ftco-animate">
-    					<div class="img d-flex align-items-end" style="background-image: url({%static "images/car-3.jpg"%});">
-    						{% comment %} <div class="price-wrap d-flex">
-    							<span class="rate">$25</span>
-    							<p class="from-day">
-    								<span>From</span>
-    								<span>/Day</span>
-    							</p>
-    						</div> {% endcomment %}
-    					</div>
-    					<div class="text p-4 text-center">
-    						<h2 class="mb-0"><a href="#">Audi A3</a></h2>
-    						<span>Audi</span>
-							<a  href="{% url 'app:booking_registration_view' %}"class="btn btn-black btn-outline-black mr-1">Book now</a>
-    						{% comment %} <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-black btn-outline-black mr-1">Book now</a> <a href="#" class="btn btn-black btn-outline-black ml-1">Details</a></p> {% endcomment %}
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-3">
-    				<div class="car-wrap ftco-animate">
-    					<div class="img d-flex align-items-end" style="background-image: url({%static "images/car-4.jpg"%});">
-    						{% comment %} <div class="price-wrap d-flex">
-    							<span class="rate">$25</span>
-    							<p class="from-day">
-    								<span>From</span>
-    								<span>/Day</span>
-    							</p>
-    						</div>  {% endcomment %}
-    					</div>
-    					<div class="text p-4 text-center">
-    						<h2 class="mb-0"><a href="#">Chevrolet Tracker</a></h2>
-    						<span>Chevrolet</span>
-							<a  href="{% url 'app:booking_registration_view' %}"class="btn btn-black btn-outline-black mr-1">Book now</a>
-    						{% comment %} <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-black btn-outline-black mr-1">Book now</a> <a href="#" class="btn btn-black btn-outline-black ml-1">Details</a></p> {% endcomment %}
-    					</div>
-    				</div>
-    			</div>
+			{% endfor%}
+
+
+    			
+
     		</div>
     	</div>
     </section>

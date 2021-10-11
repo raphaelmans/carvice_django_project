@@ -9,7 +9,7 @@
             <select class="form-control" id="car_id" name="car_id" required>
               <option value="" selected hidden>Select Car</option>
                 {% for car in car %}
-              <option value="{{car.car_id}}"> {{car.model}}</option>
+              <option value="{{car.car_id}}"> {{car.car_id}} - {{car.model}} </option>
                 {% endfor %}
             </select>
             <div class="valid-feedback">

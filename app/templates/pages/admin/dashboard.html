@@ -15,8 +15,15 @@
         </div>
     </div>
 </section>
+{% for msg in messages%}
+<div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top:1%">
+    <strong>Holy guacamole!</strong> {{msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor%}
 <div class="" style="margin-bottom:5%"></div>
-
 {%include "../../components/admin/charts.html"%}
 
 <!-- User-->
@@ -40,9 +47,9 @@
             <table class="table table-hover bootstrap-datatable display" id="table_id">
                 <thead class="text-center">
                     <tr>
-                        {% comment %} <th scope="col">Id</th> {% endcomment %}
-                        {% comment %} <th scope="col">Username</th>
-                        <th scope="col">Password</th> {% endcomment %}
+                        <th scope="col">User Id</th>
+                        <th scope="col">Username</th>
+                        {% comment %} <th scope="col">Password</th> {% endcomment %}
                         <th scope="col">First</th>
                         <th scope="col">Last</th>
                         <th></th>
@@ -54,26 +61,172 @@
                 <tbody class="text-center">
                     {% for user in user %}
                     <tr>
-                        {% comment %} <td scope="row">{{user.user_id}}</td> {% endcomment %}
-                        {% comment %} <td>{{user.username}}</td>
-                        <td>{{user.password}}</td> {% endcomment %}
+                        <td>{{user.user_id}}</td>
+                        <td>{{user.username}}</td>
+                        {% comment %} <td>{{user.password}}</td> {% endcomment %}
                         <td>{{user.first_name}}</td>
                         <td>{{user.last_name}}</td>
-                        <td> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
-                                data-target="#viewUserModal" onclick="handleUserModal('{{user.user_id}}')"><i class="fas fa-eye"></i></button>
-                            <button class="btn btn-danger btn-sm waves-effect waves-light ml-3"
-                            onclick="openDeleteModal('{{user.user_id}}','USER')"
-                            ><i class="fas fa-trash"></i></button>
+                        <td>
+                            <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
+                                data-target="#viewUserModal_{{user.user_id}}"> <i class="fas fa-eye"></i></button>
+                            <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
+                                data-target="#deleteUserConfirmModal_{{user.user_id}}"><i
+                                    class="fas fa-trash"></i></button>
                         </td>
                         <!-- <td>{{user.phone_number}}</td>
                         <td>{{user.email_address}}</td>
                         <td>{{user.is_admin}}</td> -->
                     </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    <!-- View User -->
+                    <div class="modal fade bd-example-modal-lg" id="viewUserModal_{{user.user_id}}" tabindex="-1"
+                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">View User</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form class="needs-validation" id="viewUser" action="" method="POST" autocomplete="off"
+                                    enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="text" id="modal_user_userid" name="user_id" value="{{user.user_id}}"
+                                        hidden>
+                                    <input type="text" id="modal_user_ousername" name="old_username"
+                                        value="{{user.username}}" hidden>
 
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label for="id_firstname" class="form-label">First name</label>
+                                                    <input type="text" class="form-control" id="modal_user_firstname"
+                                                        name="user_first_name" value="{{user.first_name}}" required>
+                                                    <div class="valid-feedback">
+                                                        Looks good!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Please enter first name
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label for="id_lastname" class="form-label">Last name</label>
+                                                    <input type="text" class="form-control" id="modal_user_lastname"
+                                                        name="user_last_name" value="{{user.last_name}}" required>
+                                                    <div class="valid-feedback">
+                                                        Looks good!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Please enter last name
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label for="id_email" class="form-label">Email</label>
+                                                    <div class="input-group has-validation">
+                                                        <input type="Email" class="form-control" id="modal_user_email"
+                                                            name="user_email_address" value="{{user.email_address}}"
+                                                            required>
+                                                        <div class="invalid-feedback">
+                                                            Please enter an email.
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label for="id_phone" class="form-label">Phone</label>
+                                                    <div class="input-group has-validation">
+                                                        <input type="text" class="form-control" id="modal_user_phone"
+                                                            name="user_phone_number" value="{{user.phone_number}}"
+                                                            required>
+                                                        <div class="invalid-feedback">
+                                                            Please enter a phone.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="id_username" class="form-label">Username</label>
+                                            <div class="input-group has-validation">
+                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                                <input type="text" class="form-control" id="modal_user_username"
+                                                    aria-describedby="inputGroupPrepend" name="user_username"
+                                                    value="{{user.username}}" required>
+                                                <div class="invalid-feedback">
+                                                    Please choose a username.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="id_password" class="form-label">Password</label>
+                                            <div class="input-group has-validation">
+                                                <input type="password" class="form-control" name="user_password"
+                                                    id="modal_user_password" value="{{user.password}}" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter a password.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" id="btnUserSave"
+                                            name="btnUserSave">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delete User-->
+                    <div class="modal fade" id="deleteUserConfirmModal_{{user.user_id}}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <form method="POST" id="deleteUser">
+                            {% csrf_token %}
+                            <input type="text" id="modal_user_userid" name="user_id" value="{{user.user_id}}" hidden>
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">Are you sure you want to delete this?</div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <button type="submit" class="btn btn-primary" id="btnUserDelete"
+                                            name="btnUserDelete">
+                                            Delete
+                                        </button>
+                                    </div>
+                        </form>
+                    </div>
         </div>
+    </div>
+
+    {% endfor %}
+    </tbody>
+    </table>
+
+    </div>
     </div>
 
 </section>
@@ -98,7 +251,7 @@
             <table class="table table-hover bootstrap-datatable">
                 <thead class="text-center">
                     <tr>
-                        <th scope="col">Id</th>
+                        <th scope="col">Car Id</th>
                         <th scope="col">Model</th>
                         <th scope="col">Brand</th>
                         <th scope="col">Year</th>
@@ -113,12 +266,103 @@
                         <td>{{car.model}}</td>
                         <td>{{car.brand}}</td>
                         <td>{{car.year}}</td>
-                        <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
-                                data-target="#viewCarModal"><i class="fas fa-eye"></i></button>
+                        <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light"
+                                data-toggle="modal" data-target="#viewCarModal_{{car.car_id}}"><i
+                                    class="fas fa-eye"></i></button>
                             <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                                 data-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                                data-target="#deleteCarConfirmModal_{{car.car_id}}"><i
+                                    class="fas fa-trash"></i></button>
                         </td>
                     </tr>
+
+                    <!-- View Cars Modal-->
+                    <div class="modal fade" id="viewCarModal_{{car.car_id}}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">View Car</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form method="POST" id="viewCar" class="needs-validation" >
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                        <div class="form-group">
+
+                                            <input type="text" id="modal_car_id" name="car_id" value="{{car.car_id}}"
+                                                hidden>
+                                            <label for="id_model" class="form-label">Model</label>
+                                            <div class="input-group has-validation">
+                                                <input type="text" class="form-control" id="id_model" name="car_model"
+                                                    value="{{car.model}}" required>
+                                                <div class="invalid-feedback">
+                                                    Please choose a model.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="id_brand" class="form-label">Brand</label>
+                                            <div class="input-group has-validation">
+                                                <input type="text" class="form-control" id="id_brand" name="car_brand"
+                                                    value="{{car.brand}}" required>
+                                                <div class="invalid-feedback">
+                                                    Please choose a brand.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="id_year" class="form-label">Year</label>
+                                            <div class="input-group has-validation">
+                                                <input type="date" class="form-control" id="id_year" name="car_year"
+                                                    value="{{ car.year|date:"d-m-Y" }}" required>
+                                                <div class="invalid-feedback">
+                                                    Please choose a date.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" name="btnCarSave" class="btn btn-primary">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delete Car-->
+                    <div class="modal fade" id="deleteCarConfirmModal_{{car.car_id}}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <form method="POST" id="deleteCar">
+                            {% csrf_token %}
+                            <input type="text" id="modal_car_carid" name="car_id" value="{{car.car_id}}" hidden>
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">Are you sure you want to delete this?</div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <button type="submit" class="btn btn-primary" id="btnCarDelete"
+                                            name="btnCarDelete">
+                                            Delete
+                                        </button>
+                                    </div>
+                        </form>
+                    </div>
+
                     {% endfor %}
                 </tbody>
             </table>
@@ -148,9 +392,9 @@
                 <thead class="text-center">
                     <tr>
                         {% comment %} <th scope="col">Id</th> {% endcomment %}
-                        <th scope="col">Fee Per Day</th>
-                        <th scope="col">Availability</th>
                         <th scope="col">Car Id</th>
+                        <th scope="col">Availability</th>
+                        <th scope="col">Fee Per Day</th>
                         <th></th>
 
                     </tr>
@@ -159,21 +403,128 @@
                     {% for rental_car in rental_car %}
                     <tr>
                         {% comment %} <td scope="row">{{rental_car.rent_id}}</td> {% endcomment %}
-                        <td>{{rental_car.fee_per_day}}</td>
-                        <td>{{rental_car.availability}}</td>
                         <td>{{rental_car.car_id_id}}</td>
-                        <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
-                                data-target="#viewRentalCarModal"><i class="fas fa-eye"></i></button>
+                        <td>{{rental_car.availability}}</td>
+                        <td>{{rental_car.fee_per_day}}</td>
+
+                        <td class="action-column"> 
+                                <button class="btn btn-success btn-sm waves-effect waves-light"
+                                data-toggle="modal" data-target="#viewRentalCarModal_{{rental_car.rent_id}}"><i
+                                    class="fas fa-eye"></i></button>
                             <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                                  data-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                                data-target="#deleteRentalConfirmModal_{{rental_car.rent_id}}"><i
+                                    class="fas fa-trash"></i></button>
                         </td>
                     </tr>
+
+
+                    <!-- View Rental Car Modal-->
+                    <div class="modal fade" id="viewRentalCarModal_{{rental_car.rent_id}}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">View Rental Car</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form method="POST" id="viewRentalCar" class="needs-validation">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" id="modal_rentalcar_carid" name="rentalcar_id"
+                                                    value="{{rental_car.rent_id}}" hidden>
+                                                <div class="form-group">
+                                                    <label for="id_car">Car</label>
+                                                    <select class="form-control" id="id_car" name="rental_car_id" required>
+                                                     {% for car in car %}
+                                                        <option value="{{rental_car.car_id_id}}" selected hidden>{{rental_car.car_id_id}}</option>
+                                                        <option value="{{car.car_id}}">{{car.car_id}} - {{car.model}}</option>
+                                                    {% endfor %}
+                                                    </select>
+                                                    <div class="valid-feedback">
+                                                        Looks good!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Please enter last name
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="id_avail">Availability</label>
+                                            <select class="form-control" id="id_avail" name="rental_availability" required>
+                                                <option value="{{rental_car.availability}}" selected hidden>{{rental_car.availability}}</option>
+                                                 <option value="1" name="1"> Yes (1)</option>
+                                                 <option value="0" name="0"> No (0) </option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please select an availability
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="id_fee" class="form-label">Fee Per Day</label>
+                                            <div class="input-group has-validation">
+                                                <input type="text" class="form-control" id="id_fee"
+                                                    value="{{rental_car.fee_per_day}}" name="rental_fee_per_day"
+                                                    required>
+                                                <div class="invalid-feedback">
+                                                    Please enter a fee.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" name="btnRentalSave" class="btn btn-primary">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delete Car-->
+                    <div class="modal fade" id="deleteRentalConfirmModal_{{rental_car.rent_id}}" tabindex="-1"
+                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <form method="POST" id="deleteCar">
+                            {% csrf_token %}
+                            <input type="text" id="modal_rentalcar_carid" name="rentalcar_id"
+                                value="{{rental_car.rent_id}}" hidden>
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">Are you sure you want to delete this?</div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <button type="submit" class="btn btn-primary" id="btnRentalDelete"
+                                            name="btnRentalDelete">
+                                            Delete
+                                        </button>
+                                    </div>
+                        </form>
+                    </div>
+
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
 </section>
+
+
 
 <section class="ftco-section services-section ftco-no-pt ftco-no-pb mt-5">
     <div class="container">
@@ -218,11 +569,11 @@
                         <td>{{bk.dropoff_date}}</td>
                         <td>{{bk.pickup_time}}</td>
                         <td>{{bk.dropoff_time}}</td>
-                        <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
-                            data-target="#viewBookingModal"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                             data-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
-                    </td>
+                        <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light"
+                                data-toggle="modal" data-target="#viewBookingModal"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
+                                data-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -261,11 +612,11 @@
                     <tr>
                         <td scope="row">{{admin.admin_id}}</td>
                         <td>{{admin.user_id_id}}</td>
-                        <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
-                            data-target="#viewAdminModal"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                             data-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
-                    </td>
+                        <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light"
+                                data-toggle="modal" data-target="#viewAdminModal"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
+                                data-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -305,11 +656,12 @@
                         <td scope="row">{{confirm.booking_id_id}}</td>
                         <td>{{confirm.admin_id_id}}</td>
                         <td>{{confirm.date}}</td>
-                        <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
-                            data-target="#viewConfirmationModal"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                             data-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
-                    </td>
+                        <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light"
+                                data-toggle="modal" data-target="#viewConfirmationModal"><i
+                                    class="fas fa-eye"></i></button>
+                            <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
+                                data-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -349,11 +701,11 @@
                         <td scope="row">{{bill.bill_no}}</td>
                         <td>{{bill.booking_id_id}}</td>
                         <td>{{bill.total_fee}}</td>
-                        <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light" data-toggle="modal"
-                            data-target="#viewBillModal"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                             data-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
-                    </td>
+                        <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light"
+                                data-toggle="modal" data-target="#viewBillModal"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
+                                data-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
