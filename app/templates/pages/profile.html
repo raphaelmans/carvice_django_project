@@ -1,0 +1,112 @@
+{% extends "../templates/base_profile.html" %}
+{% load static %}
+
+{%block form_content%}
+{% csrf_token %}
+<h4><b>User Profile</b></h4>
+<div class="d-flex">
+    <div class="form-group mr-2">
+        <label for="" class="label">First Name</label>
+        <input type="text" class="form-control" id="id_firstname" placeholder="First Name" name="first_name" required />
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please enter first name
+        </div>
+    </div>
+    <div class="form-group ml-2">
+        <label for="" class="label">Last Name</label>
+        <input type="text" class="form-control" id="id_lastname" placeholder="Last Name" name="last_name" required />
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please enter last name
+        </div>
+    </div>
+</div>
+
+<div class="d-flex">
+    <div class="form-group mr-2">
+        <label for="id_email" class="form-label">Email</label>
+        <div class="input-group has-validation">
+            <input type="Email" class="form-control" id="id_email" name="email_address" required>
+            <div class="invalid-feedback">
+                Please enter an email.
+            </div>
+        </div>
+    </div>
+    <div class="form-group ml-2">
+        <label for="id_phone" class="form-label">Phone</label>
+        <div class="input-group has-validation">
+            <input type="text" class="form-control" id="id_phone" name="phone_number" required>
+            <div class="invalid-feedback">
+                Please enter a phone.
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="id_username" class="form-label">Username</label>
+    <div class="input-group has-validation">
+        <span class="input-group-text" id="inputGroupPrepend">@</span>
+        <input type="text" class="form-control" id="id_username" aria-describedby="inputGroupPrepend" name="username"
+            required>
+        <div class="invalid-feedback">
+            Please choose a username.
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="id_password" class="form-label">Password</label>
+    <div class="input-group has-validation">
+        <input type="password" class="form-control" id="id_password" name="password" required>
+        <div class="invalid-feedback">
+            Please enter a password.
+        </div>
+    </div>
+</div>
+
+
+<div class="form-group mt-5 row justify-content-between">
+    <div class="col-auto mr-auto">
+        <button type="button" class="btn btn-danger" data-toggle="modal"
+            data-target="#deleteUserConfirmModal">Delete</button>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</div>
+
+{%endblock form_content%}
+{%block form_modal%}
+<!-- Delete User-->
+<div class="modal fade" id="deleteUserConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <form method="POST" id="deleteUser">
+        {% csrf_token %}
+        <input type="text" id="modal_user_userid" name="user_id" value="{{user.user_id}}" hidden>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are you sure you want to delete this?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="btnUserDelete" name="btnUserDelete">
+                        Delete
+                    </button>
+                </div>
+            </div>
+    </form>
+</div>
+{%endblock form_modal%}
+
+

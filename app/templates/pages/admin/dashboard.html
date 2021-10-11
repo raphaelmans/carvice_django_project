@@ -217,6 +217,7 @@
                                             Delete
                                         </button>
                                     </div>
+                                </div>
                         </form>
                     </div>
         </div>
@@ -318,7 +319,7 @@
                                             <label for="id_year" class="form-label">Year</label>
                                             <div class="input-group has-validation">
                                                 <input type="date" class="form-control" id="id_year" name="car_year"
-                                                    value="{{ car.year|date:"d-m-Y" }}" required>
+                                                    value="{{ car.year|date:"Y-m-d" }}" required>
                                                 <div class="invalid-feedback">
                                                     Please choose a date.
                                                 </div>
