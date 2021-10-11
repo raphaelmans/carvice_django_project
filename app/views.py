@@ -26,7 +26,11 @@ class AboutUsView(View):
 class FeaturesView(View):
 
     def get(self, request):
-        return render(request, 'pages/features.html', {})
+        rental_car = Rental_Car.objects.select_related('car_id').all()
+        context = {
+            'rental_car': rental_car,
+        }
+        return render(request, 'pages/features.html', context)
 
 
 class ContactView(View):
