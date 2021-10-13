@@ -246,8 +246,11 @@ class CarRegistrationView(View):
 class RentalCarRegistrationView(View):
     def get(self, request):
         car = Car.objects.all()
+        car_count = Car.objects.count()
+        hasAvailableCar = car_count != 0
         context = {
             'car': car,
+            'hasAvailableCar': hasAvailableCar
         }
         return render(request, 'pages/admin/insert_rentalcar.html', context)
 

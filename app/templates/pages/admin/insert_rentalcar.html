@@ -4,6 +4,7 @@
 {%block form_content%}
 {% csrf_token %}
     <h4><b>Add Rental Car</b></h4>
+    {% if hasAvailableCar %}
           <div class="form-group">
             <label for="car_id">Car</label>
             <select class="form-control" id="car_id" name="car_id" required>
@@ -45,4 +46,11 @@
           <div class="form-group mt-5">
             <button type="submit" class="btn btn-block btn-primary py-3 px-4">Insert</button>
           </div>
+
+
+{%else%}
+  <h4 class="text-danger">No Cars Available</h4>
+
+{% endif %}
+
 {%endblock form_content%}
