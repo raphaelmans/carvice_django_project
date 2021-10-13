@@ -69,6 +69,7 @@ async function showAdminModal(id){
         console.log(parsedRes)
         $("#modal_admin_adminid_select").val(parsedRes.admin_id).change();
         $("#modal_admin_userid").val(parsedRes.user_id).change();
+        $("#modal_admin_role").val(parsedRes.role).change();
     }
 }
 
