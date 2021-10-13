@@ -391,7 +391,7 @@
             <table class="table table-hover bootstrap-datatable">
                 <thead class="text-center">
                     <tr>
-                        {% comment %} <th scope="col">Id</th> {% endcomment %}
+                        <th scope="col">Rent Id</th>
                         <th scope="col">Car Id</th>
                         <th scope="col">Availability</th>
                         <th scope="col">Fee Per Day</th>
@@ -402,7 +402,7 @@
                 <tbody class="text-center">
                     {% for rental_car in rental_car %}
                     <tr>
-                        {% comment %} <td scope="row">{{rental_car.rent_id}}</td> {% endcomment %}
+                        <td scope="row">{{rental_car.rent_id}}</td>
                         <td>{{rental_car.car_id_id}}</td>
                         <td>{{rental_car.availability}}</td>
                         <td>{{rental_car.fee_per_day}}</td>
@@ -570,9 +570,9 @@
                         <td>{{bk.pickup_time}}</td>
                         <td>{{bk.dropoff_time}}</td>
                         <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light"
-                                data-toggle="modal" data-target="#viewBookingModal"><i class="fas fa-eye"></i></button>
+                                data-toggle="modal" onclick="showBookingModal('{{bk.booking_id}}')"><i class="fas fa-eye"></i></button>
                             <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                                data-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                               onclick="openDeleteModal('{{bk.booking_id}}','BOOKING')"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                     {% endfor %}
@@ -604,6 +604,7 @@
                     <tr>
                         <th scope="col">Admin Id</th>
                         <th scope="col">User Id</th>
+                        <th scope="col">Role</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -612,10 +613,11 @@
                     <tr>
                         <td scope="row">{{admin.admin_id}}</td>
                         <td>{{admin.user_id_id}}</td>
+                        <td>{{admin.role}}</td>
                         <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light"
-                                data-toggle="modal" data-target="#viewAdminModal"><i class="fas fa-eye"></i></button>
+                                data-toggle="modal" onclick="showAdminModal('{{admin.admin_id}}')"><i class="fas fa-eye"></i></button>
                             <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                                data-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                                onclick="openDeleteModal('{{admin.admin_id}}','ADMIN')"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                     {% endfor %}
@@ -657,10 +659,10 @@
                         <td>{{confirm.admin_id_id}}</td>
                         <td>{{confirm.date}}</td>
                         <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light"
-                                data-toggle="modal" data-target="#viewConfirmationModal"><i
+                                data-toggle="modal" onclick="showConfirmModal('{{confirm.booking_id_id}}','{{confirm.admin_id_id}}')"><i
                                     class="fas fa-eye"></i></button>
                             <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
-                                data-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                                onclick="openDeleteModal('{{confirm.booking_id_id}}','CONFIRMATION')"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                     {% endfor %}
@@ -702,7 +704,7 @@
                         <td>{{bill.booking_id_id}}</td>
                         <td>{{bill.total_fee}}</td>
                         <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light"
-                                data-toggle="modal" data-target="#viewBillModal"><i class="fas fa-eye"></i></button>
+                                data-toggle="modal" onclick="showBillModal('{{bill.bill_no}}')"><i class="fas fa-eye"></i></button>
                             <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
                                 data-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
                         </td>

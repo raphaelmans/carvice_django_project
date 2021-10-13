@@ -6,15 +6,25 @@ from django.views.generic import View
 from datetime import datetime
 from .forms import *
 from django.contrib import messages
-
+from django.contrib.auth.models import User as DjangoUser
+from django.contrib.auth import authenticate, login, logout
 
 class IndexView(View):
     def get(self, request):
         rental_car = Rental_Car.objects.select_related('car_id').all()
+        logged_in_user = False
+        if request.user.is_authenticated:
+            logged_in_user = request.user
         context = {
             'rental_car': rental_car,
+            'logged_in_user':logged_in_user
         }
         return render(request, 'pages/index.html', context)
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('app:index')
 
 
 class AboutUsView(View):
@@ -41,33 +51,49 @@ class SignUpView(View):
         return render(request, 'pages/signup.html', {})
 
     def post(self, request):
-            form = UserForm(request.POST)
+        form = UserForm(request.POST)
 
-            if form.is_valid():
-                fname = request.POST.get("first_name")
-                lname = request.POST.get("last_name")
-                un = request.POST.get("username")
-                pw = request.POST.get("password")
-                
-                #username filtering
-                if(User.objects.filter(username = un).exists()):
-                    messages.error(request, "Username already exists")
-                    # return HttpResponse('not valid')
-                    return redirect('app:sign_up') 
+        if form.is_valid():
+            fname = request.POST.get("first_name")
+            lname = request.POST.get("last_name")
+            un = request.POST.get("username")
+            pw = request.POST.get("password")
 
-                else: 
-                    form = User(username = un, password = pw,first_name = fname, last_name = lname, is_admin=0) 
-                    form.save()
-                    return redirect('app:index')
-            
+            # username filtering
+            if(User.objects.filter(username=un).exists()):
+                messages.error(request, "Username already exists")
+                # return HttpResponse('not valid')
+                return redirect('app:sign_up')
+
             else:
-                print(form.errors)
+                form = User(username=un, password=pw,
+                            first_name=fname, last_name=lname, is_admin=0)
+                form.save()
+
+                DjangoUser.objects.create_user(un, un+'@gmail.com', pw)
+                return redirect('app:index')
+
+        else:
+            print(form.errors)
 
 
 class SignInView(View):
 
     def get(self, request):
         return render(request, 'pages/signin.html', {})
+
+    def post(self, request):
+        un = request.POST.get("username")
+        pw = request.POST.get("password")
+        user = authenticate(request,username=un, password=pw)
+        if user is not None:
+            login(request, user)
+            return redirect('app:index')
+        else:
+            messages.error(request, "User Does not exist")
+            return redirect('app:signin')
+            
+
 
 class DashboardView(View):
 
@@ -105,7 +131,7 @@ class DashboardView(View):
 
         return render(request, 'pages/admin/dashboard.html', context)
 
-    def post(self,request):
+    def post(self, request):
         if request.method == 'POST':
             if 'btnUserSave' in request.POST:
                 uid = request.POST.get("user_id")
@@ -117,18 +143,19 @@ class DashboardView(View):
                 email = request.POST.get("user_email_address")
                 phone = request.POST.get("user_phone_number")
 
-                 #username filtering
+                # username filtering
                 if(un != oun):
-                    if(User.objects.filter(username = un).exists()):
+                    if(User.objects.filter(username=un).exists()):
                         messages.error(request, "Username already exists")
-                else: 
-                    update_user = User.objects.filter(user_id = uid).update(username = un, password = pw,first_name = fname, last_name = lname,  phone_number = phone, email_address = email, is_admin=0)
+                else:
+                    update_user = User.objects.filter(user_id=uid).update(
+                        username=un, password=pw, first_name=fname, last_name=lname,  phone_number=phone, email_address=email, is_admin=0)
                     print(update_user)
 
             elif 'btnUserDelete' in request.POST:
                 print('DELETE BUTTON IS CLICKED')
                 uid = request.POST.get("user_id")
-                us = User.objects.filter(user_id = uid).delete()
+                us = User.objects.filter(user_id=uid).delete()
                 print('DELETE BUTTON IS CLICKED')
 
             if 'btnCarSave' in request.POST:
@@ -137,29 +164,32 @@ class DashboardView(View):
                 ml = request.POST.get("car_model")
                 bd = request.POST.get("car_brand")
                 yr = request.POST.get("car_year")
-                update_car = Car.objects.filter(car_id = cid).update(model=ml, brand=bd, year=yr)
+                update_car = Car.objects.filter(
+                    car_id=cid).update(model=ml, brand=bd, year=yr)
                 print(update_car)
-            
+
             elif 'btnCarDelete' in request.POST:
                 cid = request.POST.get("car_id")
-                cs = Car.objects.filter(car_id = cid).delete()
+                cs = Car.objects.filter(car_id=cid).delete()
                 print('DELETE BUTTON IS CLICKED')
-            
+
             if 'btnRentalSave' in request.POST:
                 rid = request.POST.get("rentalcar_id")
                 car = Car.objects.get(car_id=request.POST.get(
-                "rental_car_id"))  # returning the car instance
+                    "rental_car_id"))  # returning the car instance
                 avail = request.POST.get("rental_availability")
                 fee = request.POST.get("rental_fee_per_day")
-                update_rent = Rental_Car.objects.filter(rent_id = rid).update(car_id = car, availability = avail, fee_per_day = fee)
+                update_rent = Rental_Car.objects.filter(rent_id=rid).update(
+                    car_id=car, availability=avail, fee_per_day=fee)
                 print(update_rent)
-            
+
             elif 'btnRentalDelete' in request.POST:
                 rid = request.POST.get("rentalcar_id")
-                cs = Rental_Car.objects.filter(rent_id = rid).delete()
+                cs = Rental_Car.objects.filter(rent_id=rid).delete()
                 print('DELETE BUTTON IS CLICKED')
-        
+
         return redirect('app:dashboard')
+
 
 class UserRegistrationView(View):
     def get(self, request):
@@ -175,28 +205,28 @@ class UserRegistrationView(View):
             pw = request.POST.get("password")
             email = request.POST.get("email_address")
             phone = request.POST.get("phone_number")
-            
-            #username filtering
-            if(User.objects.filter(username = un).exists()):
-                messages.error(request, "Username already exists")
-                return redirect('app:user_registration_view') 
 
-            else: 
-                form = User(username = un, password = pw,first_name = fname, last_name = lname,  phone_number = phone, email_address = email, is_admin=0) 
+            # username filtering
+            if(User.objects.filter(username=un).exists()):
+                messages.error(request, "Username already exists")
+                return redirect('app:user_registration_view')
+
+            else:
+                form = User(username=un, password=pw, first_name=fname, last_name=lname,
+                            phone_number=phone, email_address=email, is_admin=0)
                 form.save()
                 return redirect('app:dashboard')
-        
+
         else:
             print(form.errors)
             return HttpResponse('not valid')
 
 
+class CarRegistrationView(View):
+    def get(self, request):
+        return render(request, 'pages/admin/insert_car.html', {})
 
-class CarRegistrationView(View): 
-    def get(self,request):
-        return render(request, 'pages/admin/insert_car.html',{})
-    
-    def post(self,request):
+    def post(self, request):
         form = CarForm(request.POST)
 
         if form.is_valid():
@@ -229,25 +259,26 @@ class RentalCarRegistrationView(View):
                 "car_id"))  # returning the car instance
             avail = request.POST.get("availability")
             fee = request.POST.get("fee_per_day")
-            
-            #If car instance is present in the database 
-            if(Rental_Car.objects.filter(car_id = car).exists()):
-                messages.error(request, "Car already exists")
-                return redirect('app:rentalcar_registration_view')
 
-            else: 
-                form = Rental_Car(car_id = car, availability = avail, fee_per_day = fee) 
-                form.save()
-                return redirect('app:dashboard')
-        
+            # If car instance is present in the database
+            # if(Rental_Car.objects.filter(car_id = car).exists()):
+            #     messages.error(request, "Car already exists")
+            #     return redirect('app:rentalcar_registration_view')
+
+            form = Rental_Car(car_id=car, availability=avail, fee_per_day=fee)
+            form.save()
+            return redirect('app:dashboard')
+
         else:
             print(form.errors)
             return HttpResponse('not valid')
 
+
 class BookingRegistrationView(View):
     def get(self, request):
         user = User.objects.all()
-        rental_car = Rental_Car.objects.select_related('car_id').all()
+        rental_car = Rental_Car.objects.select_related(
+            'car_id').filter(availability=1)
         context = {
             'user': user,
             'rental_car': rental_car,
@@ -266,6 +297,9 @@ class BookingRegistrationView(View):
             dropoff_date = request.POST.get("dropoff_date")
             pickup_time = request.POST.get("pickup_time")
             dropoff_time = request.POST.get("dropoff_time")
+
+            car.availability = 0
+            car.save()
 
             object = Booking(rent_id=car,
                              user_id=user_id,
@@ -297,9 +331,10 @@ class AdminRegistrationView(View):
 
         if form.is_valid():
             user_id = User.objects.get(user_id=request.POST.get("user_id"))
-
+            role = request.POST.get("role")
             object = Admin(
                 user_id=user_id,
+                role=role
             )
             object.save()
 
@@ -334,7 +369,7 @@ class ConfirmationRegistrationView(View):
             object.save()
 
             return redirect('app:dashboard')
-            
+
         else:
             print(form.errors)
             return HttpResponse('not valid')

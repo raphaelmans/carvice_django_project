@@ -28,13 +28,106 @@ async function updateUserById() {
   }
 }
 
+async function updateBookingById() {
+  const booking_id = $("#modal_booking_bookingid").val();
+  const user_id = $("#modal_booking_userid").val();
+  const rent_id = $("#modal_booking_rentid").val();
+  const pickup_location = $("#modal_booking_pickuplocation").val();
+  const dropoff_location = $("#modal_booking_dropofflocation").val();
+  const pickup_date = $("#modal_booking_pickupdate").val();
+  const dropoff_date = $("#modal_booking_dropoffdate").val();
+  const pickup_time = $("#modal_booking_pickuptime").val();
+  const dropoff_time = $("#modal_booking_dropofftime").val();
 
-async function openDeleteModal(user_id,model_type){  
-    $("#deleteConfirmModal").modal('show')
-    $("#delete_id").val(user_id)
-    $("#delete_model_type").val(model_type)
+  const req_body = {
+    booking_id,
+    user_id,
+    rent_id,
+    pickup_location,
+    dropoff_location,
+    pickup_date,
+    dropoff_date,
+    pickup_time,
+    dropoff_time,
+  }
+  console.log(req_body)
+
+  const res = await fetch("http://127.0.0.1:8000/api/bookingById", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken,
+    },
+    body: JSON.stringify(req_body),
+  });
+  if (res.status == 200) {
+    location.reload();
+  }
 }
 
+async function updateConfirmById() {
+  const booking_id = $("#modal_confirm_bookingid").val();
+  const admin_id = $("#modal_confirm_adminid").val();
+  const date = $("#modal_confirm_date").val();
+
+  const res = await fetch("http://127.0.0.1:8000/api/confirmById", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken,
+    },
+    body: JSON.stringify({
+      booking_id,
+      admin_id,
+      date
+    }),
+  });
+  if (res.status == 200) {
+    location.reload();
+  }
+}
+
+async function updateBillById() {
+  const bill_no = $("#modal_bill_billno").val();
+  const booking_id = $("#modal_bill_bookingid").val();
+  const total_fee = $("#modal_bill_totalfee").val();
+
+  const res = await fetch("http://127.0.0.1:8000/api/billById", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken,
+    },
+    body: JSON.stringify({
+      bill_no,
+      booking_id,
+      total_fee
+    }),
+  });
+  if (res.status == 200) {
+    location.reload();
+  }
+}
+
+async function updateAdminById() {
+  const admin_id = $("#modal_admin_adminid").val();
+  const role = $("#modal_admin_role").val();
+
+  const res = await fetch("http://127.0.0.1:8000/api/adminById", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken,
+    },
+    body: JSON.stringify({
+      admin_id,
+      role,
+    }),
+  });
+  if (res.status == 200) {
+    location.reload();
+  }
+}
 
 async function deleteById() {
   const model_type = $("#delete_model_type").val();
@@ -46,6 +139,24 @@ async function deleteById() {
       deleteLink = `${deleteLink}/userById`;
       reqBodyValue = JSON.stringify({
         user_id: id,
+      });
+      break;
+    case "BOOKING":
+      deleteLink = `${deleteLink}/bookingById`;
+      reqBodyValue = JSON.stringify({
+        booking_id: id,
+      });
+      break;
+    case "ADMIN":
+      deleteLink = `${deleteLink}/adminById`;
+      reqBodyValue = JSON.stringify({
+        admin_id: id,
+      });
+      break;
+    case "CONFIRMATION":
+      deleteLink = `${deleteLink}/confirmById`;
+      reqBodyValue = JSON.stringify({
+        booking_id: id,
       });
       break;
   }
@@ -63,26 +174,25 @@ async function deleteById() {
   }
 }
 
-
-async function generateChartData(){
-    const res = await fetch(`http://127.0.0.1:8000/api/chartData`, {
+async function generateChartData() {
+  const res = await fetch(`http://127.0.0.1:8000/api/chartData`, {
     method: "GET",
     headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": csrftoken ,
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken,
     },
-    });
-    const jsonString = await res.text()
-    if(res.status === 200){
-        const parsedRes = JSON.parse(jsonString)
-        $('#chart_user').val(parsedRes.user_count)
-        $('#chart_car').val(parsedRes.car_count)
-        $('#chart_rentalcar').val(parsedRes.rental_count)
-        $('#chart_booking').val(parsedRes.booking_count)
-        $('#chart_admin').val(parsedRes.admin_count)
-        $('#chart_confirmation').val(parsedRes.confirmation_count)
-        $('#chart_bill').val(parsedRes.bill_count)
-    }
+  });
+  const jsonString = await res.text();
+  if (res.status === 200) {
+    const parsedRes = JSON.parse(jsonString);
+    $("#chart_user").val(parsedRes.user_count);
+    $("#chart_car").val(parsedRes.car_count);
+    $("#chart_rentalcar").val(parsedRes.rental_count);
+    $("#chart_booking").val(parsedRes.booking_count);
+    $("#chart_admin").val(parsedRes.admin_count);
+    $("#chart_confirmation").val(parsedRes.confirmation_count);
+    $("#chart_bill").val(parsedRes.bill_count);
+  }
 }
 
-generateChartData()
+generateChartData();

@@ -11,6 +11,7 @@ urlpatterns = [
     path('contact', views.ContactView.as_view(), name='contact'),
     path('signup', views.SignUpView.as_view(), name='sign_up'),
     path('signin', views.SignInView.as_view(), name='signin'),
+    path('logout', views.LogoutView.as_view(), name='logout'),
     path('dashboard', views.DashboardView.as_view(), name='dashboard'),
     path('userregistration', views.UserRegistrationView.as_view(), name='user_registration_view'),
     path('carregistration', views.CarRegistrationView.as_view(), name='car_registration_view'),
@@ -23,5 +24,8 @@ urlpatterns = [
 
     # api link
     path('api/userById', apis.UserByID.as_view(), name='api_getUserById'),
-    #path('api/chartData', apis.ChartData.as_view(), name='api_chartData'),
+    path('api/bookingById', apis.BookingByID.as_view(), name='api_bookingById'),
+    path('api/adminById', apis.AdminByID.as_view(), name='api_adminById'),
+    path('api/confirmById', apis.ConfirmationByID.as_view(), name='api_confirmById'),
+    path('api/billById', apis.BillByID.as_view(), name='api_billById'),
 ]

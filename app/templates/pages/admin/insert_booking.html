@@ -3,7 +3,7 @@
 {%block form_content%}
 {% csrf_token %}
 <h4><b>Add Booking</b></h4>
-
+{% if rental_car.length > 0%}
 <div class="row">
     <div class="col-6">
         <div class="form-group">
@@ -28,7 +28,7 @@
             <select class="form-control" id="rent_id" name="rent_id" required>
               <option value="" selected hidden>Select Car</option>
                 {% for rc in rental_car %}
-              <option value="{{rc.rent_id}}">{{rc.car_id.brand}} {{rc.car_id.model}}</option>
+              <option value="{{rc.rent_id}}">{{rc.car_id.model}} - {{rc.fee_per_day}}$/hr</option>
                 {% endfor %}
             </select>
             <div class="valid-feedback">
@@ -103,6 +103,11 @@
     Insert
   </button>
 </div>
+
+{%else%}
+  <h4 class="text-danger">No Rental Cars Available</h4>
+
+{% endif %}
 
 {%endblock form_content%}
 

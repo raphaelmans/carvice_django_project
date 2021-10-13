@@ -31,7 +31,7 @@ class BookingForm(forms.ModelForm):
 class ConfirmationForm(forms.ModelForm):
     class Meta:
         model = Confirmation
-        fields = '__all__'
+        fields = ('booking_id', 'admin_id')
 
 
 class BillForm(forms.ModelForm):

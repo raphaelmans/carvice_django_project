@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models.base import Model
-
+from django.utils.timezone import now
 # Create your models here.
 
 # Villacarlos
@@ -46,11 +46,12 @@ class Booking(models.Model):
 class Admin(models.Model):
     admin_id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=25,default="Sales")
 
 class Confirmation(models.Model):
     booking_id = models.ForeignKey(Booking, on_delete = models.CASCADE)
     admin_id = models.ForeignKey(Admin, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=now, editable=True)
 
 class Bill(models.Model):
     bill_no = models.AutoField(primary_key=True)
