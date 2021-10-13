@@ -101,6 +101,11 @@ class BookingByID(View):
 
         booking_id = body['booking_id']
         booking = Booking.objects.get(booking_id=booking_id)
+
+        rental_car =  booking.rent_id
+        rental_car.availability = 1
+        rental_car.save()
+
         booking.delete()
         data = {
             "status": "success"
