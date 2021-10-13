@@ -36,7 +36,11 @@ class AboutUsView(View):
 class FeaturesView(View):
 
     def get(self, request):
-        return render(request, 'pages/features.html', {})
+        rental_car = Rental_Car.objects.select_related('car_id').all()
+        context = {
+            'rental_car': rental_car,
+        }
+        return render(request, 'pages/features.html', context)
 
 
 class ContactView(View):
@@ -401,6 +405,36 @@ class BillRegistrationView(View):
 
             return redirect('app:dashboard')
 
+        else:
+            print(form.errors)
+            return HttpResponse('not valid')
+
+
+class ProfileView(View):
+    def get(self, request):
+        return render(request, 'pages/profile.html', {})
+
+    def post(self, request):
+        form = UserForm(request.POST)
+
+        if form.is_valid():
+            fname = request.POST.get("first_name")
+            lname = request.POST.get("last_name")
+            un = request.POST.get("username")
+            pw = request.POST.get("password")
+            email = request.POST.get("email_address")
+            phone = request.POST.get("phone_number")
+            
+            #username filtering
+            if(User.objects.filter(username = un).exists()):
+                messages.error(request, "Username already exists")
+                return redirect('app:profile_view') 
+
+            else: 
+                form = User(username = un, password = pw,first_name = fname, last_name = lname,  phone_number = phone, email_address = email, is_admin=0) 
+                form.save()
+                return redirect('app:dashboard')
+        
         else:
             print(form.errors)
             return HttpResponse('not valid')

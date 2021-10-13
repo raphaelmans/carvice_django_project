@@ -20,7 +20,7 @@ urlpatterns = [
     path('adminregistration', views.AdminRegistrationView.as_view(), name='admin_registration_view'),
     path('confirmationregistration', views.ConfirmationRegistrationView.as_view(), name='confirmation_registration_view'),
     path('billregistration', views.BillRegistrationView.as_view(), name='bill_registartion_view'),
-    
+    path('profile', views.ProfileView.as_view(), name='profile_view'),
 
     # api link
     path('api/userById', apis.UserByID.as_view(), name='api_getUserById'),
