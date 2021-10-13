@@ -279,7 +279,7 @@
                                     <option value="" selected hidden>Select Car</option>
                                     {% for rc in rental_car %}
                                         {% if rc.availability != 0 %} <option value="{{rc.rent_id}}">{{rc.car_id.model}} - {{rc.fee_per_day}}$/hr</option>
-                                        {% else %} <option value="{{rc.rent_id}}">{{rc.car_id.model}} - RENTED</option>
+                                        {% else %} <option value="{{rc.rent_id}}" disabled>{{rc.car_id.model}} - RENTED</option>
                                         {% endif %}
                                     {% endfor %}
                                 </select>

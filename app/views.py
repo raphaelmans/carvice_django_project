@@ -279,9 +279,12 @@ class BookingRegistrationView(View):
         user = User.objects.all()
         rental_car = Rental_Car.objects.select_related(
             'car_id').filter(availability=1)
+
+        hasAvailableCar = rental_car.count() > 0
         context = {
             'user': user,
             'rental_car': rental_car,
+            'hasAvailableCar': hasAvailableCar
         }
         return render(request, 'pages/admin/insert_booking.html', context)
 

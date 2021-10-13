@@ -79,6 +79,13 @@ class BookingByID(View):
 
         booking = Booking.objects.get(booking_id=booking_id)
 
+        prev_rent_car = booking.rent_id
+        prev_rent_car.availability = 1
+        prev_rent_car.save()
+
+        rent_id.availability = 0
+        rent_id.save()
+
         # booking.user_id = user_id
         booking.rent_id = rent_id
         booking.pickup_location = pickup_location
