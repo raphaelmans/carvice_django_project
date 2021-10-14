@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User as DjangoUser
 from django.contrib.auth import authenticate, login, logout
 
+
 class IndexView(View):
     def get(self, request):
         rental_car = Rental_Car.objects.select_related('car_id').all()
@@ -17,9 +18,10 @@ class IndexView(View):
             logged_in_user = request.user
         context = {
             'rental_car': rental_car,
-            'logged_in_user':logged_in_user
+            'logged_in_user': logged_in_user
         }
         return render(request, 'pages/index.html', context)
+
 
 class LogoutView(View):
     def get(self, request):
@@ -89,14 +91,13 @@ class SignInView(View):
     def post(self, request):
         un = request.POST.get("username")
         pw = request.POST.get("password")
-        user = authenticate(request,username=un, password=pw)
+        user = authenticate(request, username=un, password=pw)
         if user is not None:
             login(request, user)
             return redirect('app:index')
         else:
             messages.error(request, "User Does not exist")
             return redirect('app:signin')
-            
 
 
 class DashboardView(View):
@@ -342,6 +343,8 @@ class AdminRegistrationView(View):
 
         if form.is_valid():
             user_id = User.objects.get(user_id=request.POST.get("user_id"))
+            user_id.is_admin = True
+            user_id.save()
             role = request.POST.get("role")
             object = Admin(
                 user_id=user_id,
@@ -398,14 +401,19 @@ class BillRegistrationView(View):
         form = BillForm(request.POST)
 
         if form.is_valid():
-            booking_id = Booking.objects.get(
-                booking_id=request.POST.get("booking_id"))
-            total_fee = request.POST.get("total_fee")
-            object = Bill(
-                booking_id=booking_id,
-                total_fee=total_fee,
-            )
-            object.save()
+            book_id = request.POST.get("booking_id")
+            if(Booking.objects.filter(booking_id=book_id).exists() != True):
+                booking_id = Booking.objects.get(
+                    booking_id=book_id)
+                total_fee = request.POST.get("total_fee")
+                object = Bill(
+                    booking_id=booking_id,
+                    total_fee=total_fee,
+                )
+                object.save()
+            else:
+                messages.error(request, "Bill already exists")
+                return redirect('app:bill_registartion_view')
 
             return redirect('app:dashboard')
 
@@ -428,17 +436,18 @@ class ProfileView(View):
             pw = request.POST.get("password")
             email = request.POST.get("email_address")
             phone = request.POST.get("phone_number")
-            
-            #username filtering
-            if(User.objects.filter(username = un).exists()):
-                messages.error(request, "Username already exists")
-                return redirect('app:profile_view') 
 
-            else: 
-                form = User(username = un, password = pw,first_name = fname, last_name = lname,  phone_number = phone, email_address = email, is_admin=0) 
+            # username filtering
+            if(User.objects.filter(username=un).exists()):
+                messages.error(request, "Username already exists")
+                return redirect('app:profile_view')
+
+            else:
+                form = User(username=un, password=pw, first_name=fname, last_name=lname,
+                            phone_number=phone, email_address=email, is_admin=0)
                 form.save()
                 return redirect('app:dashboard')
-        
+
         else:
             print(form.errors)
             return HttpResponse('not valid')

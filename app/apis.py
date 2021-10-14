@@ -229,9 +229,9 @@ class BillByID(View):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
 
-        booking_id = body['booking_id']
-        confirmation = Confirmation.objects.get(booking_id=booking_id)
-        confirmation.delete()
+        bill_no = body['bill_no']
+        bill = Bill.objects.get(bill_no=bill_no)
+        bill.delete()
         data = {
             "status": "success"
         }

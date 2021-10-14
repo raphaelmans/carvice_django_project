@@ -159,6 +159,12 @@ async function deleteById() {
         booking_id: id,
       });
       break;
+    case "BILL":
+      deleteLink = `${deleteLink}/billById`;
+      reqBodyValue = JSON.stringify({
+        bill_no: id,
+      });
+      break;
   }
   const res = await fetch(deleteLink, {
     method: "DELETE",
