@@ -138,6 +138,7 @@ class DashboardView(View):
     def post(self, request):
         if request.method == 'POST':
             if 'btnUserSave' in request.POST:
+                print("Hello Save")
                 uid = request.POST.get("user_id")
                 fname = request.POST.get("user_first_name")
                 lname = request.POST.get("user_last_name")
@@ -146,16 +147,17 @@ class DashboardView(View):
                 pw = request.POST.get("user_password")
                 email = request.POST.get("user_email_address")
                 phone = request.POST.get("user_phone_number")
+                print(un)
+                print(oun)
+                print(uid)
 
                 # username filtering
-                if(un != oun):
-                    if(User.objects.filter(username=un).exists()):
-                        messages.error(request, "Username already exists")
+                if(User.objects.filter(username=un).exists() and un != oun):
+                    messages.error(request, "Username already exists")
                 else:
-                    update_user = User.objects.filter(user_id=uid).update(
-                        username=un, password=pw, first_name=fname, last_name=lname,  phone_number=phone, email_address=email, is_admin=0)
-                    print(update_user)
-
+                    update_user = User.objects.filter(user_id=uid).update(username=un, password=pw, first_name=fname, last_name=lname,      phone_number=phone, email_address=email, is_admin=0)
+                    print("Hello")
+                    
             elif 'btnUserDelete' in request.POST:
                 print('DELETE BUTTON IS CLICKED')
                 uid = request.POST.get("user_id")
@@ -214,7 +216,6 @@ class UserRegistrationView(View):
             if(User.objects.filter(username=un).exists()):
                 messages.error(request, "Username already exists")
                 return redirect('app:user_registration_view')
-
             else:
                 form = User(username=un, password=pw, first_name=fname, last_name=lname,
                             phone_number=phone, email_address=email, is_admin=0)
