@@ -66,7 +66,6 @@ class BookingByID(View):
     def put(self, request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-
         booking_id = body['booking_id']
         # user_id = body['user_id']
         rent_id = Rental_Car.objects.get(rent_id=body['rent_id'])
@@ -85,10 +84,8 @@ class BookingByID(View):
 
         rent_id.availability = 0
         rent_id.save()
-
         # booking.user_id = user_id
         booking.rent_id = rent_id
-        booking.pickup_location = pickup_location
         booking.pickup_location = pickup_location
         booking.dropoff_location = dropoff_location
         booking.pickup_date = pickup_date
@@ -134,10 +131,7 @@ class AdminByID(View):
         role = body['role']
 
         admin = Admin.objects.get(admin_id=admin_id)
-
-
         admin.role = role
-
         admin.save()
 
         data = {
