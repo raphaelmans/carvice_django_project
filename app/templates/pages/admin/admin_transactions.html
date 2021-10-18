@@ -1,0 +1,89 @@
+{% extends "../../templates/admin_base.html" %}
+{% load static %}
+{%block content%}
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url({% static 'images/bg_2.jpg'%});"
+    data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i
+                                class="ion-ios-arrow-forward"></i></a></span> <span>Transactions <i
+                            class="ion-ios-arrow-forward"></i></span></p>
+                <h1 class="mb-3 bread">Transactions</h1>
+            </div>
+        </div>
+    </div>
+</section>
+{% for msg in messages%}
+<div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top:1%">
+    <strong>Holy guacamole!</strong> {{msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor%}
+<div class="" style="margin-bottom:5%"></div>
+
+
+<section class="ftco-section services-section ftco-no-pt ftco-no-pb mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-2">
+                <span class="subheading">Tables</span>
+                <h2 class="mb-2">History</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col align-self-end text-right">
+                <div class="form-group">
+                    <a href="{% url 'app:booking_registration_view' %}"> <button type="button" class="btn btn-primary">
+                            Insert</button> </a>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex">
+            <table class="table table-hover bootstrap-datatable">
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col">Booking Id</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Rent Id</th>
+                        <th scope="col">Pick up location</th>
+                        <th scope="col">Drop off location</th>
+                        <th scope="col">Bill</th>
+                        <th scope="col">Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for bk in booking %}
+                    <tr>
+                        <td scope="row">{{bk.booking_id}}</td>
+                        <td>{{bk.user_id_id}}</td>
+                        <td>{{bk.rent_id_id}}</td>
+                        <td>{{bk.pickup_location}}</td>
+                        <td>{{bk.dropoff_location}}</td>
+                        <td>{{bk.pickup_date}}</td>
+                        <td>{{bk.dropoff_date}}</td>
+         
+                        <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light"
+                                data-toggle="modal" onclick="showBookingModal('{{bk.booking_id}}')"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
+                               onclick="openDeleteModal('{{bk.booking_id}}','BOOKING')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+
+{%include "../../components/admin/view_modals.html"%}
+{%include "../../components/admin/delete_modals.html"%}
+
+
+{%endblock content%}

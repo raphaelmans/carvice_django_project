@@ -77,7 +77,7 @@ class SignUpView(View):
                 form.save()
 
                 DjangoUser.objects.create_user(un, un+'@gmail.com', pw)
-                return redirect('app:index')
+                return redirect('app:signin')
 
         else:
             print(form.errors)
@@ -425,6 +425,158 @@ class BillRegistrationView(View):
 class ProfileView(View):
     def get(self, request):
         return render(request, 'pages/profile.html', {})
+
+    def post(self, request):
+        form = UserForm(request.POST)
+
+        if form.is_valid():
+            fname = request.POST.get("first_name")
+            lname = request.POST.get("last_name")
+            un = request.POST.get("username")
+            pw = request.POST.get("password")
+            email = request.POST.get("email_address")
+            phone = request.POST.get("phone_number")
+
+            # username filtering
+            if(User.objects.filter(username=un).exists()):
+                messages.error(request, "Username already exists")
+                return redirect('app:profile_view')
+
+            else:
+                form = User(username=un, password=pw, first_name=fname, last_name=lname,
+                            phone_number=phone, email_address=email, is_admin=0)
+                form.save()
+                return redirect('app:dashboard')
+
+        else:
+            print(form.errors)
+            return HttpResponse('not valid')
+
+
+#users
+
+class BookCarView(View):
+    def get(self, request):
+        user = User.objects.all()
+        rental_car = Rental_Car.objects.select_related(
+            'car_id').filter(availability=1)
+
+        hasAvailableCar = rental_car.count() > 0
+        context = {
+            'user': user,
+            'rental_car': rental_car,
+            'hasAvailableCar': hasAvailableCar
+        }
+        return render(request, 'pages/user/book_car.html', context)
+
+    def post(self, request):
+        form = BookingForm(request.POST)
+
+        if form.is_valid():
+            user_id = User.objects.get(user_id=request.POST.get("user_id"))
+            car = Rental_Car.objects.get(rent_id=request.POST.get("rent_id"))
+            pickup_location = request.POST.get("pickup_location")
+            dropoff_location = request.POST.get("dropoff_location")
+            pickup_date = request.POST.get("pickup_date")
+            dropoff_date = request.POST.get("dropoff_date")
+            pickup_time = request.POST.get("pickup_time")
+            dropoff_time = request.POST.get("dropoff_time")
+
+            car.availability = 0
+            car.save()
+
+            object = Booking(rent_id=car,
+                             user_id=user_id,
+                             pickup_location=pickup_location,
+                             dropoff_location=dropoff_location,
+                             pickup_date=pickup_date,
+                             dropoff_date=dropoff_date,
+                             pickup_time=pickup_time,
+                             dropoff_time=dropoff_time,
+                             )
+            object.save()
+
+            return redirect('app:dashboard')
+        else:
+            print(form.errors)
+            return HttpResponse('not valid')
+
+class TransactionsView(View): 
+     def get(self, request):
+        user = User.objects.filter()
+        car = Car.objects.all()
+        rental_car = Rental_Car.objects.all()
+        booking = Booking.objects.all()
+        confirmation = Confirmation.objects.all()
+        bill = Bill.objects.all()
+        admin = Admin.objects.all()
+        user_count = User.objects.all().count()
+        car_count = Car.objects.all().count()
+        rental_count = Rental_Car.objects.all().count()
+        booking_count = Booking.objects.all().count()
+        admin_count = Admin.objects.all().count()
+        bill_count = Bill.objects.all().count()
+        confirmation_count = Confirmation.objects.all().count()
+        context = {
+            'user': user,
+            'car': car,
+            'rental_car': rental_car,
+            'booking': booking,
+            'confirmation': confirmation,
+            'bill': bill,
+            'admin': admin,
+            "user_count": user_count,
+            "rental_count": rental_count,
+            "car_count": car_count,
+            "admin_count": admin_count,
+            "bill_count": bill_count,
+            "booking_count": booking_count,
+            "confirmation_count": confirmation_count,
+        }
+
+        return render(request, 'pages/transactions.html', context)
+
+
+#admin
+class AdminTransactionsView(View): 
+     def get(self, request):
+        user = User.objects.filter()
+        car = Car.objects.all()
+        rental_car = Rental_Car.objects.all()
+        booking = Booking.objects.all()
+        confirmation = Confirmation.objects.all()
+        bill = Bill.objects.all()
+        admin = Admin.objects.all()
+        user_count = User.objects.all().count()
+        car_count = Car.objects.all().count()
+        rental_count = Rental_Car.objects.all().count()
+        booking_count = Booking.objects.all().count()
+        admin_count = Admin.objects.all().count()
+        bill_count = Bill.objects.all().count()
+        confirmation_count = Confirmation.objects.all().count()
+        context = {
+            'user': user,
+            'car': car,
+            'rental_car': rental_car,
+            'booking': booking,
+            'confirmation': confirmation,
+            'bill': bill,
+            'admin': admin,
+            "user_count": user_count,
+            "rental_count": rental_count,
+            "car_count": car_count,
+            "admin_count": admin_count,
+            "bill_count": bill_count,
+            "booking_count": booking_count,
+            "confirmation_count": confirmation_count,
+        }
+
+        return render(request, 'pages/admin/admin_transactions.html', context)
+
+
+class AdminProfileView(View):
+    def get(self, request):
+        return render(request, 'pages/admin/admin_profile.html', {})
 
     def post(self, request):
         form = UserForm(request.POST)
