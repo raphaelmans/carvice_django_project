@@ -122,3 +122,9 @@ async function openDeleteModal(id,model_type){
     $("#delete_id").val(id)
     $("#delete_model_type").val(model_type)
 }
+async function showConfirmBookingModal(booking_id,admin_id){
+    $("#bookingConfirmModal").modal('show')
+    $("#modal_confirm_bookingid").val(booking_id)
+    $("#modal_confirm_adminid").val(admin_id)
+}
+

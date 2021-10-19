@@ -5,23 +5,7 @@
 <h4><b>Rent a Car</b></h4>
 {% if hasAvailableCar %}
 <div class="row">
-    <!-- <div class="col-6">
-        <div class="form-group">
-            <label for="user_id">User</label>
-            <select class="form-control" id="user_id" name="user_id" required>
-              <option value="" selected hidden>Select User</option>
-                {% for user in user %}
-              <option value="{{user.user_id}}"> {{user.username}}</option>
-                {% endfor %}
-            </select>
-            <div class="valid-feedback">
-              Looks good!
-            </div>
-            <div class="invalid-feedback">
-              Please select user
-            </div>
-        </div>
-    </div> -->
+    <input type="hidden" name="user_id" value="{{user.user_id}}">
     <div class="col">
         <div class="form-group">
             <label for="rent_id">Rental Car</label>

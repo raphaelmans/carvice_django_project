@@ -9,16 +9,25 @@ from django.contrib import messages
 from django.contrib.auth.models import User as DjangoUser
 from django.contrib.auth import authenticate, login, logout
 
+from django import template
+
+register = template.Library()
+
+class AuthUser:
+
+    def authenticate(request):
+        logged_in_user = False
+        if request.user.is_authenticated:
+            logged_in_user = request.user
+        return logged_in_user
+
 
 class IndexView(View):
     def get(self, request):
         rental_car = Rental_Car.objects.select_related('car_id').all()
-        logged_in_user = False
-        if request.user.is_authenticated:
-            logged_in_user = request.user
         context = {
             'rental_car': rental_car,
-            'logged_in_user': logged_in_user
+            'logged_in_user': AuthUser.authenticate(request)
         }
         return render(request, 'pages/index.html', context)
 
@@ -32,7 +41,7 @@ class LogoutView(View):
 class AboutUsView(View):
 
     def get(self, request):
-        return render(request, 'pages/about_us.html', {})
+        return render(request, 'pages/about_us.html', {'logged_in_user': AuthUser.authenticate(request)})
 
 
 class FeaturesView(View):
@@ -41,6 +50,7 @@ class FeaturesView(View):
         rental_car = Rental_Car.objects.select_related('car_id').all()
         context = {
             'rental_car': rental_car,
+            'logged_in_user': AuthUser.authenticate(request)
         }
         return render(request, 'pages/features.html', context)
 
@@ -48,7 +58,7 @@ class FeaturesView(View):
 class ContactView(View):
 
     def get(self, request):
-        return render(request, 'pages/contact.html', {})
+        return render(request, 'pages/contact.html', {'logged_in_user': AuthUser.authenticate(request)})
 
 
 class SignUpView(View):
@@ -92,9 +102,14 @@ class SignInView(View):
         un = request.POST.get("username")
         pw = request.POST.get("password")
         user = authenticate(request, username=un, password=pw)
-        if user is not None:
+        dbUser = User.objects.get(username=un)
+        
+        if user is not None and dbUser is not None:
             login(request, user)
-            return redirect('app:index')
+            if dbUser.is_admin is True:
+                return redirect('app:dashboard')
+            else:
+                return redirect('app:index')
         else:
             messages.error(request, "User Does not exist")
             return redirect('app:signin')
@@ -132,6 +147,7 @@ class DashboardView(View):
             "bill_count": bill_count,
             "booking_count": booking_count,
             "confirmation_count": confirmation_count,
+            'logged_in_user': AuthUser.authenticate(request)
         }
 
         return render(request, 'pages/admin/dashboard.html', context)
@@ -156,9 +172,10 @@ class DashboardView(View):
                 if(User.objects.filter(username=un).exists() and un != oun):
                     messages.error(request, "Username already exists")
                 else:
-                    update_user = User.objects.filter(user_id=uid).update(username=un, password=pw, first_name=fname, last_name=lname,      phone_number=phone, email_address=email, is_admin=0)
+                    update_user = User.objects.filter(user_id=uid).update(
+                        username=un, password=pw, first_name=fname, last_name=lname,      phone_number=phone, email_address=email, is_admin=0)
                     print("Hello")
-                    
+
             elif 'btnUserDelete' in request.POST:
                 print('DELETE BUTTON IS CLICKED')
                 uid = request.POST.get("user_id")
@@ -424,7 +441,7 @@ class BillRegistrationView(View):
 
 class ProfileView(View):
     def get(self, request):
-        return render(request, 'pages/profile.html', {})
+        return render(request, 'pages/profile.html', {'logged_in_user': AuthUser.authenticate(request)})
 
     def post(self, request):
         form = UserForm(request.POST)
@@ -453,11 +470,12 @@ class ProfileView(View):
             return HttpResponse('not valid')
 
 
-#users
+# users
 
 class BookCarView(View):
     def get(self, request):
-        user = User.objects.all()
+        authUser = AuthUser.authenticate(request)
+        user = User.objects.get(username=authUser)
         rental_car = Rental_Car.objects.select_related(
             'car_id').filter(availability=1)
 
@@ -465,7 +483,8 @@ class BookCarView(View):
         context = {
             'user': user,
             'rental_car': rental_car,
-            'hasAvailableCar': hasAvailableCar
+            'hasAvailableCar': hasAvailableCar,
+            'logged_in_user': authUser
         }
         return render(request, 'pages/user/book_car.html', context)
 
@@ -485,6 +504,8 @@ class BookCarView(View):
             car.availability = 0
             car.save()
 
+         
+
             object = Booking(rent_id=car,
                              user_id=user_id,
                              pickup_location=pickup_location,
@@ -496,79 +517,53 @@ class BookCarView(View):
                              )
             object.save()
 
-            return redirect('app:dashboard')
+            fee = car.fee_per_day
+            bill = Bill(booking_id=object,total_fee=fee)
+            bill.save()
+
+            return redirect('app:transactions_view')
         else:
             print(form.errors)
             return HttpResponse('not valid')
 
-class TransactionsView(View): 
-     def get(self, request):
-        user = User.objects.filter()
-        car = Car.objects.all()
-        rental_car = Rental_Car.objects.all()
-        booking = Booking.objects.all()
-        confirmation = Confirmation.objects.all()
-        bill = Bill.objects.all()
-        admin = Admin.objects.all()
-        user_count = User.objects.all().count()
-        car_count = Car.objects.all().count()
-        rental_count = Rental_Car.objects.all().count()
-        booking_count = Booking.objects.all().count()
-        admin_count = Admin.objects.all().count()
-        bill_count = Bill.objects.all().count()
-        confirmation_count = Confirmation.objects.all().count()
+
+class TransactionsView(View):
+    def get(self, request):
+     
+        authUser = AuthUser.authenticate(request)
+        if not authUser:
+            return redirect('app:signin')
+
+        user = User.objects.get(username=authUser)
+        booking = Booking.objects.select_related('rent_id').filter(user_id=user.user_id)
         context = {
             'user': user,
-            'car': car,
-            'rental_car': rental_car,
             'booking': booking,
-            'confirmation': confirmation,
-            'bill': bill,
-            'admin': admin,
-            "user_count": user_count,
-            "rental_count": rental_count,
-            "car_count": car_count,
-            "admin_count": admin_count,
-            "bill_count": bill_count,
-            "booking_count": booking_count,
-            "confirmation_count": confirmation_count,
+            "logged_in_user": AuthUser.authenticate(request)
         }
 
         return render(request, 'pages/transactions.html', context)
 
 
-#admin
-class AdminTransactionsView(View): 
-     def get(self, request):
-        user = User.objects.filter()
+# admin
+class AdminTransactionsView(View):
+
+
+    def get(self, request):
+        booking = Booking.objects.select_related('rent_id').all()
+       
         car = Car.objects.all()
-        rental_car = Rental_Car.objects.all()
-        booking = Booking.objects.all()
-        confirmation = Confirmation.objects.all()
-        bill = Bill.objects.all()
-        admin = Admin.objects.all()
-        user_count = User.objects.all().count()
-        car_count = Car.objects.all().count()
-        rental_count = Rental_Car.objects.all().count()
-        booking_count = Booking.objects.all().count()
-        admin_count = Admin.objects.all().count()
-        bill_count = Bill.objects.all().count()
-        confirmation_count = Confirmation.objects.all().count()
+
+        authUser = AuthUser.authenticate(request)
+
+        user = User.objects.get(username=authUser)
+        admin = Admin.objects.get(user_id=user)
         context = {
             'user': user,
             'car': car,
-            'rental_car': rental_car,
-            'booking': booking,
-            'confirmation': confirmation,
-            'bill': bill,
             'admin': admin,
-            "user_count": user_count,
-            "rental_count": rental_count,
-            "car_count": car_count,
-            "admin_count": admin_count,
-            "bill_count": bill_count,
-            "booking_count": booking_count,
-            "confirmation_count": confirmation_count,
+            'booking': booking,
+            "logged_in_user": authUser
         }
 
         return render(request, 'pages/admin/admin_transactions.html', context)

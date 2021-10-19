@@ -128,6 +128,27 @@ async function updateAdminById() {
     location.reload();
   }
 }
+async function confirmBooking(){
+  const book_id = $("#modal_confirm_bookingid").val()
+  const admin_id = $("#modal_confirm_adminid").val()
+
+  console.log(book_id,admin_id)
+  
+  const res = await fetch("http://127.0.0.1:8000/api/confirmBookingById", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken,
+    },
+    body: JSON.stringify({
+      book_id,
+      admin_id,
+    }),
+  });
+  if (res.status == 200) {
+    location.reload();
+  }
+}
 
 async function deleteById() {
   const model_type = $("#delete_model_type").val();

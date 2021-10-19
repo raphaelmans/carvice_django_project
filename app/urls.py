@@ -38,4 +38,7 @@ urlpatterns = [
     path('api/adminById', apis.AdminByID.as_view(), name='api_adminById'),
     path('api/confirmById', apis.ConfirmationByID.as_view(), name='api_confirmById'),
     path('api/billById', apis.BillByID.as_view(), name='api_billById'),
+    path('api/confirmBookingById', apis.ConfirmBookingByID.as_view(), name='api_confirmBookingById'),
+    path('api/billByBookingId', apis.BillByBookingID.as_view(), name='api_billByBookingId'),
+    path('api/getAllStatus', apis.StatusAll.as_view(), name='api_statusAll'),
 ]

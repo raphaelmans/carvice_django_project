@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import View
 from datetime import datetime
 from .forms import *
-
+from django.core.serializers import serialize
 
 class UserByID(View):
     def get(self, request):
@@ -55,14 +55,12 @@ class UserByID(View):
         return JsonResponse(data)
 
 
-
 class BookingByID(View):
     def get(self, request):
         booking_id = request.GET.get('booking_id')
         booking = Booking.objects.get(booking_id=booking_id)
         return JsonResponse(model_to_dict(booking))
 
-        
     def put(self, request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
@@ -106,7 +104,7 @@ class BookingByID(View):
         booking_id = body['booking_id']
         booking = Booking.objects.get(booking_id=booking_id)
 
-        rental_car =  booking.rent_id
+        rental_car = booking.rent_id
         rental_car.availability = 1
         rental_car.save()
 
@@ -116,12 +114,12 @@ class BookingByID(View):
         }
         return JsonResponse(data)
 
+
 class AdminByID(View):
     def get(self, request):
         admin_id = request.GET.get('admin_id')
         admin = Admin.objects.get(admin_id=admin_id)
         return JsonResponse(model_to_dict(admin))
-
 
     def put(self, request):
         body_unicode = request.body.decode('utf-8')
@@ -151,11 +149,13 @@ class AdminByID(View):
         }
         return JsonResponse(data)
 
+
 class ConfirmationByID(View):
     def get(self, request):
         booking_id = request.GET.get('booking_id')
         admin_id = request.GET.get('admin_id')
-        confirmation = Confirmation.objects.get(booking_id=booking_id,admin_id=admin_id)
+        confirmation = Confirmation.objects.get(
+            booking_id=booking_id, admin_id=admin_id)
 
         return JsonResponse(model_to_dict(confirmation))
 
@@ -167,7 +167,8 @@ class ConfirmationByID(View):
         admin_id = body['admin_id']
         date = body['date']
 
-        confirmation = Confirmation.objects.get(booking_id=booking_id,admin_id=admin_id)
+        confirmation = Confirmation.objects.get(
+            booking_id=booking_id, admin_id=admin_id)
 
         confirmation.admin_id = Admin.objects.get(admin_id=admin_id)
         confirmation.date = date
@@ -192,7 +193,6 @@ class ConfirmationByID(View):
         return JsonResponse(data)
 
 
-
 class BillByID(View):
     def get(self, request):
         bill_no = request.GET.get('bill_no')
@@ -208,7 +208,6 @@ class BillByID(View):
         total_fee = body['total_fee']
 
         bill = Bill.objects.get(bill_no=bill_no)
-
 
         bill.total_fee = total_fee
 
@@ -230,4 +229,42 @@ class BillByID(View):
             "status": "success"
         }
         return JsonResponse(data)
+
+
+class ConfirmBookingByID(View):
+
+    def post(self, request):
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        print(body)
+        booking_id = Booking.objects.get(booking_id=body["book_id"])
+
+        admin_id = Admin.objects.get(admin_id=body["admin_id"])
+
+        object = Confirmation(
+            booking_id=booking_id,
+            admin_id=admin_id,
+        )
+        object.save()
+
+        data = {
+            "status": "success"
+        }
+        return JsonResponse(data)
+
+class BillByBookingID(View):
+
+   def get(self, request):
+        bill = Bill.objects.values()
+        parseBill = list(bill)
+        return JsonResponse(parseBill,safe=False)
+
+
+class StatusAll(View):
+
+   def get(self, request):
+        confirm = Confirmation.objects.values()
+        parseBill = list(confirm)
+        return JsonResponse(parseBill,safe=False)
+
 

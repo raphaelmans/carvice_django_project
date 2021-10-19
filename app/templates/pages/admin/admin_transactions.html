@@ -60,15 +60,15 @@
                     {% for bk in booking %}
                     <tr>
                         <td scope="row">{{bk.booking_id}}</td>
-                        <td>{{bk.user_id_id}}</td>
-                        <td>{{bk.rent_id_id}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{bk.rent_id.car_id.model}}</td>
                         <td>{{bk.pickup_location}}</td>
                         <td>{{bk.dropoff_location}}</td>
-                        <td>{{bk.pickup_date}}</td>
-                        <td>{{bk.dropoff_date}}</td>
-         
+                        <td id="bk_id_{{bk.booking_id}}">{{bk.dropoff_date}}</td>
+                        <td id="status_{{bk.booking_id}}">Pending</td>
                         <td class="action-column"> <button class="btn btn-success btn-sm waves-effect waves-light"
-                                data-toggle="modal" onclick="showBookingModal('{{bk.booking_id}}')"><i class="fas fa-eye"></i></button>
+                                id="btn_bk_{{bk.booking_id}}"
+                                data-toggle="modal" onclick="showConfirmBookingModal('{{bk.booking_id}}','{{admin.admin_id}}')">Confirm</button>
                             <button class="btn btn-danger btn-sm waves-effect waves-light ml-3" data-toggle="modal"
                                onclick="openDeleteModal('{{bk.booking_id}}','BOOKING')"><i class="fas fa-trash"></i></button>
                         </td>
@@ -82,8 +82,41 @@
 </section>
 
 
-{%include "../../components/admin/view_modals.html"%}
+{%include "../../components/admin/confirm_modal.html"%}
 {%include "../../components/admin/delete_modals.html"%}
 
+<script>
+    window.addEventListener('load', function () {
+        fetch(`http://127.0.0.1:8000/api/billByBookingId`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+            },
+        }).then((data) => {
+            data.text().then(text => {
+                const parsed = JSON.parse(text);
+                for (bk of parsed) {
+                    document.getElementById(`bk_id_${bk.booking_id_id}`).innerHTML = bk.total_fee + '$'
+                }
+            })
+        })
+        fetch(`http://127.0.0.1:8000/api/getAllStatus`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+            },
+        }).then((data) => {
+            data.text().then(text => {
+                const parsed = JSON.parse(text);
+                for (bk of parsed) {
+                    document.getElementById(`status_${bk.booking_id_id}`).innerHTML = 'ACTIVE'
+                    document.getElementById(`btn_bk_${bk.booking_id_id}`).style.display = 'none'
+                }
+            })
+        })
+    })
+</script>
 
 {%endblock content%}
