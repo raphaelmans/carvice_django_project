@@ -26,7 +26,7 @@
         <div class="" style="width:100%">
           <div class="form-group">
             <div class="form-field">
-              <a href="{% if logged_in_user %}{% url 'app:book_car_view' %}{% else %}{% url 'app:booking_registration_view' %}{% endif %} ">
+              <a href="{% if logged_in_user %}{% url 'app:book_car_view' %}{% else %}{% url 'app:signin' %}{% endif %} ">
                 <input type="submit" value="Book Now" class="form-control btn btn-primary">
               </a>
             </div>

@@ -15,7 +15,7 @@
     					<div class="text p-4 text-center">
     						<h2 class="mb-0">{{rental_car.car_id.model}}<a href="#"></a></h2>
     						<span>{{rental_car.car_id.brand}}</span>
-							<a  href="{% if logged_in_user %}{% url 'app:book_car_view' %}{% else %}{% url 'app:booking_registration_view' %}{% endif %} "class="btn btn-black btn-outline-black mr-1">Book now</a>
+							<a  href="{% if logged_in_user %}{% url 'app:book_car_view' %}{% else %}{% url 'app:signin' %}{% endif %} "class="btn btn-black btn-outline-black mr-1">Book now</a>
     					</div>
     				</div>
     			</div>

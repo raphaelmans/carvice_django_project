@@ -118,7 +118,7 @@ class SignInView(View):
 class DashboardView(View):
 
     def get(self, request):
-        user = User.objects.filter()
+        user = User.objects.all()
         car = Car.objects.all()
         rental_car = Rental_Car.objects.all()
         booking = Booking.objects.all()
@@ -173,7 +173,7 @@ class DashboardView(View):
                     messages.error(request, "Username already exists")
                 else:
                     update_user = User.objects.filter(user_id=uid).update(
-                        username=un, password=pw, first_name=fname, last_name=lname,      phone_number=phone, email_address=email, is_admin=0)
+                        username=un, password=pw, first_name=fname, last_name=lname, phone_number=phone, email_address=email, is_admin=0)
                     print("Hello")
 
             elif 'btnUserDelete' in request.POST:
@@ -441,33 +441,45 @@ class BillRegistrationView(View):
 
 class ProfileView(View):
     def get(self, request):
-        return render(request, 'pages/profile.html', {'logged_in_user': AuthUser.authenticate(request)})
+        user = User.objects.filter(username = AuthUser.authenticate(request))
+        context = {
+            'logged_in_user': AuthUser.authenticate(request), 
+            'user': user
+        }
+        return render(request, 'pages/profile.html', context)
 
     def post(self, request):
-        form = UserForm(request.POST)
+        if request.method == 'POST':
+            if 'btnUserSave' in request.POST:
+                uid = request.POST.get("user_id")
+                fname = request.POST.get("first_name")
+                lname = request.POST.get("last_name")
+                # un = request.POST.get("username")
+                # oun = request.POST.get("old_username")
+                pw = request.POST.get("password")
+                email = request.POST.get("email_address")
+                phone = request.POST.get("phone_number")
 
-        if form.is_valid():
-            fname = request.POST.get("first_name")
-            lname = request.POST.get("last_name")
-            un = request.POST.get("username")
-            pw = request.POST.get("password")
-            email = request.POST.get("email_address")
-            phone = request.POST.get("phone_number")
+                # username filtering
+                # if(User.objects.filter(username=un).exists() and un != oun):
+                #     messages.error(request, "Username already exists")
+                # else:
+                #     update_user = User.objects.filter(user_id=uid).update(
+                #         username=un, password=pw, first_name=fname, last_name=lname, phone_number=phone, email_address=email)
+                update_user = User.objects.filter(user_id=uid).update(password=pw, first_name=fname, last_name=lname, phone_number=phone, email_address=email)
+                
+                # if (un != oun):
+                #     return redirect('app:signin')
 
-            # username filtering
-            if(User.objects.filter(username=un).exists()):
-                messages.error(request, "Username already exists")
-                return redirect('app:profile_view')
-
-            else:
-                form = User(username=un, password=pw, first_name=fname, last_name=lname,
-                            phone_number=phone, email_address=email, is_admin=0)
-                form.save()
-                return redirect('app:dashboard')
-
-        else:
-            print(form.errors)
-            return HttpResponse('not valid')
+            elif 'btnUserDelete' in request.POST:
+                print('DELETE BUTTON IS CLICKED')
+                uid = request.POST.get("user_id")
+                print("Id " + uid); 
+                us = User.objects.filter(user_id=uid).delete()
+                print('DELETE BUTTON IS CLICKED')
+                return redirect('app:sign_up')
+        
+        return redirect('app:profile_view')
 
 
 # users
@@ -571,30 +583,40 @@ class AdminTransactionsView(View):
 
 class AdminProfileView(View):
     def get(self, request):
-        return render(request, 'pages/admin/admin_profile.html', {})
+        user = User.objects.filter(username = AuthUser.authenticate(request))
+        context = {
+            'logged_in_user': AuthUser.authenticate(request), 
+            'user': user
+        }
+        return render(request, 'pages/admin/admin_profile.html', context)
 
     def post(self, request):
-        form = UserForm(request.POST)
+        if request.method == 'POST':
+            if 'btnUserSave' in request.POST:
+                uid = request.POST.get("user_id")
+                fname = request.POST.get("first_name")
+                lname = request.POST.get("last_name")
+                pw = request.POST.get("password")
+                email = request.POST.get("email_address")
+                phone = request.POST.get("phone_number")
 
-        if form.is_valid():
-            fname = request.POST.get("first_name")
-            lname = request.POST.get("last_name")
-            un = request.POST.get("username")
-            pw = request.POST.get("password")
-            email = request.POST.get("email_address")
-            phone = request.POST.get("phone_number")
+                # # username filtering
+                # if(User.objects.filter(username=un).exists() and un != oun):
+                #     messages.error(request, "Username already exists")
+                # else:
+                # update_user = User.objects.filter(user_id=uid).update(username=un, password=pw, first_name=fname, last_name=lname, phone_number=phone, email_address=email)
+                
+                update_user = User.objects.filter(user_id=uid).update(password=pw, first_name=fname, last_name=lname, phone_number=phone, email_address=email)
 
-            # username filtering
-            if(User.objects.filter(username=un).exists()):
-                messages.error(request, "Username already exists")
-                return redirect('app:profile_view')
+                # if (un != oun):
+                #     return redirect('app:signin')
 
-            else:
-                form = User(username=un, password=pw, first_name=fname, last_name=lname,
-                            phone_number=phone, email_address=email, is_admin=0)
-                form.save()
-                return redirect('app:dashboard')
-
-        else:
-            print(form.errors)
-            return HttpResponse('not valid')
+            elif 'btnUserDelete' in request.POST:
+                print('DELETE BUTTON IS CLICKED')
+                uid = request.POST.get("user_id")
+                print("Id " + uid); 
+                us = User.objects.filter(user_id=uid).delete()
+                print('DELETE BUTTON IS CLICKED')
+                return redirect('app:sign_up')
+        
+        return redirect('app:admin_profile_view')

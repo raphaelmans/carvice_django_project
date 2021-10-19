@@ -5,9 +5,12 @@
 {% csrf_token %}
 <h4><b>User Profile</b></h4>
 <div class="d-flex">
+{% for user in user %}
+    <input type="text" id="modal_user_userid" name="user_id" value="{{user.user_id}}" hidden>
+    <input type="text" id="modal_user_ousername" name="old_username" value="{{user.username}}" hidden>
     <div class="form-group mr-2">
         <label for="" class="label">First Name</label>
-        <input type="text" class="form-control" id="id_firstname" placeholder="First Name" name="first_name" required />
+        <input type="text" class="form-control" id="id_firstname" placeholder="First Name" name="first_name" value="{{user.first_name}}" required />
         <div class="valid-feedback">
             Looks good!
         </div>
@@ -17,7 +20,7 @@
     </div>
     <div class="form-group ml-2">
         <label for="" class="label">Last Name</label>
-        <input type="text" class="form-control" id="id_lastname" placeholder="Last Name" name="last_name" required />
+        <input type="text" class="form-control" id="id_lastname" placeholder="Last Name" name="last_name" value="{{user.last_name}}" required />
         <div class="valid-feedback">
             Looks good!
         </div>
@@ -31,7 +34,7 @@
     <div class="form-group mr-2">
         <label for="id_email" class="form-label">Email</label>
         <div class="input-group has-validation">
-            <input type="Email" class="form-control" id="id_email" name="email_address" required>
+            <input type="Email" class="form-control" id="id_email" name="email_address" value="{{user.email_address}}" required>
             <div class="invalid-feedback">
                 Please enter an email.
             </div>
@@ -40,7 +43,7 @@
     <div class="form-group ml-2">
         <label for="id_phone" class="form-label">Phone</label>
         <div class="input-group has-validation">
-            <input type="text" class="form-control" id="id_phone" name="phone_number" required>
+            <input type="text" class="form-control" id="id_phone" name="phone_number" value="{{user.phone_number}}"required>
             <div class="invalid-feedback">
                 Please enter a phone.
             </div>
@@ -51,8 +54,8 @@
     <label for="id_username" class="form-label">Username</label>
     <div class="input-group has-validation">
         <span class="input-group-text" id="inputGroupPrepend">@</span>
-        <input type="text" class="form-control" id="id_username" aria-describedby="inputGroupPrepend" name="username"
-            required>
+        <input type="text" class="form-control" id="id_username" aria-describedby="inputGroupPrepend" name="username" value="{{user.username}}"
+            disabled>
         <div class="invalid-feedback">
             Please choose a username.
         </div>
@@ -61,7 +64,7 @@
 <div class="form-group">
     <label for="id_password" class="form-label">Password</label>
     <div class="input-group has-validation">
-        <input type="password" class="form-control" id="id_password" name="password" required>
+        <input type="password" class="form-control" id="id_password" name="password" value="{{user.password}}" required>
         <div class="invalid-feedback">
             Please enter a password.
         </div>
@@ -75,12 +78,13 @@
             data-target="#deleteUserConfirmModal">Delete</button>
     </div>
     <div class="col-auto">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary" id="btnUserSave" name="btnUserSave">Save</button>
     </div>
 </div>
-
+{% endfor %}
 {%endblock form_content%}
 {%block form_modal%}
+{% for user in user %}
 <!-- Delete User-->
 <div class="modal fade" id="deleteUserConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -107,6 +111,7 @@
             </div>
     </form>
 </div>
+{% endfor %}
 {%endblock form_modal%}
 
 
